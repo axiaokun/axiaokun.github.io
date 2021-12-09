@@ -70,6 +70,10 @@
   <time datetime="2021-12-09T08:33:09.000Z" itemprop="datePublished">2021-12-09</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%80%E5%8D%95%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%B3%BB%E5%88%97/">简单搭建博客系列</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -86,8 +90,22 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="博客中图片显示问题"><a href="#博客中图片显示问题" class="headerlink" title="博客中图片显示问题"></a>博客中图片显示问题</h1><p><img src="1.jpg"></p>
-<p><img src="%E6%BD%AE%E7%95%99%E7%BE%8E%E6%B5%B7.jpg"></p>
+        <h1 id="博客中图片显示问题"><a href="#博客中图片显示问题" class="headerlink" title="博客中图片显示问题"></a>博客中图片显示问题</h1><p>修改<code>Hexo</code>配置</p>
+<ul>
+<li><code>_config.yml</code>文件中修改<code>post_asset_folder: false</code>为<code>post_asset_folder: true</code></li>
+<li>该配置目的： 每次新建Markdown文件的时候，都会创建一个与文件同名的文件夹用于存放图片 ，与上面<code>typora</code>的配置一致</li>
+</ul>
+<p>图片路径</p>
+<ul>
+<li>图片文件名即可</li>
+<li>md文件对应的图片上传到github仓库时，图片会和md文件在同一目录下</li>
+<li>本地观感查，建议使用本地留份自己的笔记，需要上传时copy一份添加上hexo对应的格式，图片路径改改，放到hexo指定位置再上传展示</li>
+</ul>
+<p>图片显示如下：</p>
+<img src="潮留美海.jpg" alt="12" style="zoom:50%;"/>
+
+
+
 
       
     </div>
@@ -95,6 +113,8 @@
       <a data-url="http://example.com/2021/12/09/%E5%8D%9A%E5%AE%A2%E4%B8%AD%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98/" data-id="ckwypgji70000w8uu7bpngza5" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog%E6%90%AD%E5%BB%BA/" rel="tag">blog搭建</a></li></ul>
+
     </footer>
   </div>
   
@@ -139,7 +159,7 @@
       <a data-url="http://example.com/2021/12/09/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99/" data-id="ckwyp7sia00009suuex7chzpl" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog%E6%90%AD%E5%BB%BA/" rel="tag">blog搭建</a></li></ul>
 
     </footer>
   </div>
@@ -217,7 +237,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog%E6%90%AD%E5%BB%BA/" rel="tag">blog搭建</a></li></ul>
     </div>
   </div>
 
@@ -227,7 +247,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/blog/" style="font-size: 10px;">blog</a>
+      <a href="/tags/blog%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">blog搭建</a>
     </div>
   </div>
 
