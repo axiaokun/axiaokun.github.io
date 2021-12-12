@@ -12,19 +12,22 @@
 
   <link rel="shortcut icon" href="/images/favicon.png">
   <link rel="alternate" href="/atom.xml" title="把博客做成字典" type="application/atom+xml">
-  <meta name="description" content="反转链表">
+  <meta name="description" content="反转链表好兄弟们，复习和预习了那么久的东西，包括计网，操作系统，java，数据库，等等一些知识，现在开始慢慢整理了（呜呜呜，可惜不知道的那些脑图笔记怎么显示好点）。不过问题也不大，当作整理复习一遍。 这次我们讲：LeetCode上 反转链表1 和 2 哈哈，想不到吧，还有2！那我们先讲讲反转链表1 递归法 反转链表1 给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。  输入：he">
 <meta property="og:type" content="article">
 <meta property="og:title" content="反转链表">
 <meta property="og:url" content="https://axiaokun.github.io/2021/12/10/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/index.html">
 <meta property="og:site_name" content="把博客做成字典">
-<meta property="og:description" content="反转链表">
+<meta property="og:description" content="反转链表好兄弟们，复习和预习了那么久的东西，包括计网，操作系统，java，数据库，等等一些知识，现在开始慢慢整理了（呜呜呜，可惜不知道的那些脑图笔记怎么显示好点）。不过问题也不大，当作整理复习一遍。 这次我们讲：LeetCode上 反转链表1 和 2 哈哈，想不到吧，还有2！那我们先讲讲反转链表1 递归法 反转链表1 给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。  输入：he">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github.com/axiaokun/image/blob/main/blog/images/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A81.png?raw=true">
+<meta property="og:image" content="https://github.com/axiaokun/image/blob/main/blog/images/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A82.png?raw=true">
 <meta property="article:published_time" content="2021-12-10T02:16:59.000Z">
-<meta property="article:modified_time" content="2021-12-10T02:18:38.358Z">
+<meta property="article:modified_time" content="2021-12-12T00:39:39.515Z">
 <meta property="article:author" content="zkz">
 <meta property="article:tag" content="反转链表">
 <meta property="article:tag" content="递归">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/axiaokun/image/blob/main/blog/images/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A81.png?raw=true">
 
   <meta name="keywords" content=",反转链表,递归">
   <meta name="format-detection" content="telephone=no,email=no">
@@ -173,7 +176,7 @@
   <style>#main article .mdui-card-content .center-block{display:block!important;margin-right:auto!important;margin-left:auto!important}</style>
   <article class="mdui-card mdui-m-b-5">
     <header class="mdui-card-media">
-      <img src="/images/random/material-13.png" style="max-height: 240px;">
+      <img src="/images/random/material-15.png" style="max-height: 240px;">
       <div class="mdui-card-media-covered">
         <div class="mdui-card-primary">
           <div class="mdui-card-primary-title">反转链表</div>
@@ -223,7 +226,43 @@
       </div>
     </header>
     <div class="mdui-card-content mdui-typo">
-      <h1 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h1>
+      <h1 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h1><p>好兄弟们，复习和预习了那么久的东西，包括计网，操作系统，java，数据库，等等一些知识，现在开始慢慢整理了（呜呜呜，可惜不知道的那些脑图笔记怎么显示好点）。不过问题也不大，当作整理复习一遍。</p>
+<p>这次我们讲：LeetCode上 反转链表1 和 2</p>
+<p>哈哈，想不到吧，还有2！那我们先讲讲反转链表1</p>
+<h2 id="递归法-反转链表1"><a href="#递归法-反转链表1" class="headerlink" title="递归法 反转链表1"></a>递归法 反转链表1</h2><blockquote>
+<p>给你单链表的头节点 <code>head</code> ，请你反转链表，并返回反转后的链表。</p>
+<p><img src="https://github.com/axiaokun/image/blob/main/blog/images/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A81.png?raw=true" alt="image"></p>
+<p>输入：head = [1,2,3,4,5]<br>输出：[5,4,3,2,1]</p>
+</blockquote>
+<p>解法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 递归法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 返回尾节点，也就是新的头节点</span></span><br><span class="line">        <span class="keyword">if</span> (head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 进入递归，获得新的头节点</span></span><br><span class="line">        ListNode node = reverseList(head.next);</span><br><span class="line">        <span class="comment">// 当前节点反转，下一个节点的next指针指向自己</span></span><br><span class="line">        head.next.next = head;</span><br><span class="line">        <span class="comment">// 当前节点next指针指向null</span></span><br><span class="line">        head.next = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">// 返回新的头节点</span></span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于递归法，其实可以理解为模板的套娃使用，根据局部做微量变化。</p>
+<ul>
+<li>为什么这么说呢？</li>
+</ul>
+<p>你看这解法是不是除了尾节点，其他节点基本都是：进入递归  =&gt;  当前节点反转，next指针null  =&gt;  返回新的头节点</p>
+<ul>
+<li>为什么说是微量变化？</li>
+</ul>
+<p>因为有些地方不能继续套用模板了，例如尾节点，它是新的头节点，要返回的，这也就我们经常说的递归终止条件。</p>
+<h2 id="递归法-反转链表2"><a href="#递归法-反转链表2" class="headerlink" title="递归法 反转链表2"></a>递归法 反转链表2</h2><blockquote>
+<p>给你单链表的头指针 head 和两个整数 left 和 right ，其中 left &lt;= right 。请你反转从位置 left 到位置 right 的链表节点，返回 反转后的链表 </p>
+<p><img src="https://github.com/axiaokun/image/blob/main/blog/images/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A82.png?raw=true" alt="image"></p>
+<p>输入：head = [1,2,3,4,5], left = 2, right = 4<br>输出：[1,4,3,2,5]</p>
+</blockquote>
+<p>解法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ListNode tail;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> right;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> left;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseBetween</span><span class="params">(ListNode head, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.right = right;</span><br><span class="line">        <span class="keyword">this</span>.left = left;</span><br><span class="line">        ListNode node = reverse(head, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 反转链表 递归法  改版（需要注意多个边界条件）</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverse</span><span class="params">(ListNode node, <span class="keyword">int</span> index)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 如果到达right，那么记录后面的节点（tail），返回当前节点</span></span><br><span class="line">        <span class="keyword">if</span> (index == right)&#123;</span><br><span class="line">            tail = node.next;</span><br><span class="line">            <span class="keyword">return</span> node;</span><br><span class="line">        <span class="comment">// 如果刚好是left，进入递归（让后面的节点先反转），当前节点反转，接上后面不需要反转的tail</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (index == left)&#123;</span><br><span class="line">            ListNode p = reverse(node.next, index + <span class="number">1</span>);</span><br><span class="line">            node.next.next = node;</span><br><span class="line">            node.next = tail;</span><br><span class="line">            <span class="keyword">return</span> p;</span><br><span class="line">        <span class="comment">// 如果是left和right之间，进入递归（让后面的节点先反转），当前节点反转，当前节点next设置为null，避免出现循环，将递归结果（right节点）返回</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (index &gt; left) &#123;</span><br><span class="line">            ListNode p = reverse(node.next, index + <span class="number">1</span>);</span><br><span class="line">            node.next.next = node;</span><br><span class="line">            node.next = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">return</span> p;</span><br><span class="line">        <span class="comment">// 如果是小于left，进入递归，next设置为递归结果，并且返回当前节点</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            ListNode p =  reverse(node.next, index + <span class="number">1</span>);</span><br><span class="line">            node.next = p;</span><br><span class="line">            <span class="keyword">return</span> node;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于这道题，也是递归做法，你看它的局部微量变化更多了。</p>
+<ul>
+<li>对于不需要反转的右半部分以及需要反转的尾节点，需要的是记录反转的部分以及返回反转部分的尾节点，这里的微量变化直接终止了递归了。</li>
+<li>对于不需要递归的左半部分，进入递归  =&gt;  当前节点接上递归结果  就完事了。核心理念依旧是，那部分该做那部分的事情（模板），其他的不要管了，递归交给后面的人去干</li>
+<li>对于需要反转的开头left，进入递归  =&gt;  当前节点反转  =&gt;  next指向不需要反转的右半部分（需要这个不需要自己干，进入递归就是让后面的干，各司其职，各自使用适合的模板）==&gt;  返回递归结果，也就是反转部分的新的头节点。</li>
+<li>对于需要反转的中间部分，进入递归  =&gt;  当前节点反转  =&gt;  next指向null  ==&gt;  返回递归反转部分新的头节点</li>
+</ul>
+<p>通过这两道题，相信你应该可以理解这套娃递归模板，以及局部微量变化的含义了吧！:blush:</p>
+
       
       <blockquote>
         
