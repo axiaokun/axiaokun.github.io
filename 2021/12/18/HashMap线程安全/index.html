@@ -8,25 +8,31 @@
   <meta name="renderer" content="webkit">
 
   
-  <title>Tag: ioc | 把博客做成字典</title>
+  <title>HashMap线程安全 | 把博客做成字典</title>
 
   <link rel="shortcut icon" href="/images/favicon.png">
   <link rel="alternate" href="/atom.xml" title="把博客做成字典" type="application/atom+xml">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="把博客做成字典">
-<meta property="og:url" content="https://axiaokun.github.io/tags/ioc/index.html">
+  <meta name="description" content="HashMap线程安全这次主要了解一下HashMap的线程安全问题，以及围绕这个问题1.7和1.8的一些改变（注意这里并不是HashMap改成线程安全，而是解决HashMap1.7下死循环问题） 在HashMap1.7中，将数据从老的Hash表中迁移到新的Hash表中的方法中 123456789101112131415161718192021void transfer(Entry[] newTab">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HashMap线程安全">
+<meta property="og:url" content="https://axiaokun.github.io/2021/12/18/HashMap%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/index.html">
 <meta property="og:site_name" content="把博客做成字典">
+<meta property="og:description" content="HashMap线程安全这次主要了解一下HashMap的线程安全问题，以及围绕这个问题1.7和1.8的一些改变（注意这里并不是HashMap改成线程安全，而是解决HashMap1.7下死循环问题） 在HashMap1.7中，将数据从老的Hash表中迁移到新的Hash表中的方法中 123456789101112131415161718192021void transfer(Entry[] newTab">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-12-18T06:33:34.000Z">
+<meta property="article:modified_time" content="2021-12-18T06:35:56.608Z">
 <meta property="article:author" content="zkz">
+<meta property="article:tag" content="集合">
+<meta property="article:tag" content="HashMap">
 <meta name="twitter:card" content="summary">
 
-  <meta name="keywords" content="">
+  <meta name="keywords" content=",集合,HashMap">
   <meta name="format-detection" content="telephone=no,email=no">
   <meta name="theme-color" content="#9C27B0">
 
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="application-name" content="把博客做成字典">
-  <meta name="msapplication-starturl" content="https://axiaokun.github.io/tags/ioc/">
+  <meta name="msapplication-starturl" content="https://axiaokun.github.io/2021/12/18/HashMap%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/">
   <meta name="msapplication-navbutton-color" content="#9C27B0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="把博客做成字典">
@@ -34,7 +40,7 @@
   <link rel="apple-touch-icon" href="/images/favicon.png">
 
   
-    <link rel="canonical" href="https://axiaokun.github.io/tags/ioc/index.html">
+    <link rel="canonical" href="https://axiaokun.github.io/2021/12/18/HashMap%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/">
   
 
   
@@ -161,76 +167,103 @@
   </div>
 </aside>
   <main id="main" class="mdui-m-t-5 fadeIn animated">
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css">
 
-
-
-  <div class="mdui-chip mdui-m-b-3">
-    <span class="mdui-chip-icon mdui-color-theme-accent"><i class="mdui-icon material-icons">place</i></span>
-    <span class="mdui-chip-title">Tag：ioc</span>
-  </div>
-
-
-  <article class="mdui-card mdui-m-b-5 mdui-hoverable">
-    <a href="/2021/12/13/Spring-bean-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
-      <header class="mdui-card-media mdui-ripple">
-        <img src="/images/random/material-15.png" style="max-height: 240px;">
-        <div class="mdui-card-media-covered">
-          <div class="mdui-card-primary">
-            <div class="mdui-card-primary-title">Spring bean 生命周期</div>
-            <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2021-12-13 / <i class="iconfont">&#xe601;</i> zkz</div>
-          </div>
+  <style>#main article .mdui-card-content .center-block{display:block!important;margin-right:auto!important;margin-left:auto!important}</style>
+  <article class="mdui-card mdui-m-b-5">
+    <header class="mdui-card-media">
+      <img src="/images/random/material-9.png" style="max-height: 240px;">
+      <div class="mdui-card-media-covered">
+        <div class="mdui-card-primary">
+          <div class="mdui-card-primary-title">HashMap线程安全</div>
+          <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2021-12-18 / <i class="iconfont">&#xe601;</i> zkz</div>
         </div>
+      </div>
+      <div class="mdui-card-menu">
         
-      </header>
-    </a>
+          <button class="mdui-btn mdui-btn-icon mdui-text-color-white" mdui-menu="{target: '#qrcode', align: 'right'}"><i class="mdui-icon material-icons">devices</i></button>
+          <ul class="mdui-menu" id="qrcode">
+            
+              <li class="mdui-menu-item"><a class="mdui-text-center mdui-ripple">发送到手机</a></li>
+            
+            <li class="mdui-menu-item" disabled>
+              
+                <img src="https://chart.googleapis.com/chart?cht=qr&chs=246x246&chl=https://axiaokun.github.io/2021/12/18/HashMap%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/&chld=M|2">
+              
+            </li>
+          </ul>
+        
+        
+          <button class="mdui-btn mdui-btn-icon mdui-text-color-white" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="mdui-icon material-icons">share</i></button>
+          <ul class="mdui-menu" id="share_menu">
+            <li class="mdui-menu-item">
+              <a href="http://service.weibo.com/share/share.php?appkey=&title=HashMap线程安全&url=https://axiaokun.github.io/2021/12/18/HashMap%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/&pic=https://axiaokun.github.io/images/favicon.png&searchPic=false&style=simple" target="_blank" class="mdui-ripple">Share to Weibo</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://twitter.com/intent/tweet?text=HashMap线程安全&url=https://axiaokun.github.io/2021/12/18/HashMap%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/&via=zkz" target="_blank" class="mdui-ripple">Share to Twitter</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://www.facebook.com/sharer/sharer.php?u=https://axiaokun.github.io/2021/12/18/HashMap%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" target="_blank" class="mdui-ripple">Share to Facebook</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://plus.google.com/share?url=https://axiaokun.github.io/2021/12/18/HashMap%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" target="_blank" class="mdui-ripple">Share to Google+</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://axiaokun.github.io/2021/12/18/HashMap%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/&title=HashMap线程安全" target="_blank" class="mdui-ripple">Share to LinkedIn</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="http://connect.qq.com/widget/shareqq/index.html?site=把博客做成字典&title=HashMap线程安全&pics=https://axiaokun.github.io/images/favicon.png&url=https://axiaokun.github.io/2021/12/18/HashMap%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" target="_blank" class="mdui-ripple">Share to QQ</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://telegram.me/share/url?url=https://axiaokun.github.io/2021/12/18/HashMap%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/&text=HashMap线程安全" target="_blank" class="mdui-ripple">Share to Telegram</a>
+            </li>
+          </ul>
+        
+      </div>
+    </header>
     <div class="mdui-card-content mdui-typo">
+      <h1 id="HashMap线程安全"><a href="#HashMap线程安全" class="headerlink" title="HashMap线程安全"></a>HashMap线程安全</h1><p>这次主要了解一下HashMap的线程安全问题，以及围绕这个问题1.7和1.8的一些改变（注意这里并不是HashMap改成线程安全，而是解决HashMap1.7下死循环问题）</p>
+<p>在HashMap1.7中，将数据从老的Hash表中迁移到新的Hash表中的方法中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">transfer</span><span class="params">(Entry[] newTable)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Entry[] src = table;</span><br><span class="line">    <span class="keyword">int</span> newCapacity = newTable.length;</span><br><span class="line">    <span class="comment">//下面这段代码的意思是：</span></span><br><span class="line">    <span class="comment">//  从OldTable里摘一个元素出来，然后放到NewTable中</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; src.length; j++) &#123;</span><br><span class="line">        Entry&lt;K,V&gt; e = src[j];</span><br><span class="line">        <span class="keyword">if</span> (e != <span class="keyword">null</span>) &#123;</span><br><span class="line">            src[j] = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">                <span class="comment">// 头插法！！！！这段是导致死循环的原因</span></span><br><span class="line">                Entry&lt;K,V&gt; next = e.next;</span><br><span class="line">                <span class="keyword">int</span> i = indexFor(e.hash, newCapacity);</span><br><span class="line">                e.next = newTable[i];</span><br><span class="line">                newTable[i] = e;</span><br><span class="line">                e = next;</span><br><span class="line">            &#125; <span class="keyword">while</span> (e != <span class="keyword">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>在并发环境下这段头插法容易使得元素之间形成一个循环链表，具体演示过程可以参考<a target="_blank" rel="noopener" href="https://coolshell.cn/articles/9606.html%E3%80%82%E5%9C%A81.8%E4%B8%ADHashMap%E5%B0%86hash%E7%A2%B0%E6%92%9E%E6%97%B6%E6%8F%92%E5%85%A5%E5%85%83%E7%B4%A0%E6%94%B9%E4%B8%BA%E5%B0%BE%E6%8F%92%E6%B3%95%EF%BC%8C%E9%81%BF%E5%85%8D%E4%BA%86%E8%BF%99%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%8C%E4%BD%86%E5%B9%B6%E5%8F%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AF%BC%E8%87%B4%E7%9A%84%E8%A6%86%E5%86%99%E7%BC%BA%E5%A4%B1%E6%95%B0%E6%8D%AE%E5%B9%B6%E6%B2%A1%E6%9C%89%E8%A7%A3%E5%86%B3%EF%BC%8C%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E5%B9%B6%E4%B8%8D%E6%98%AFHashMap%E7%9A%84%E6%9C%AC%E8%BA%AB%E8%80%83%E8%99%91%E7%9A%84%EF%BC%8C">https://coolshell.cn/articles/9606.html。在1.8中HashMap将hash碰撞时插入元素改为尾插法，避免了这个问题，但并发环境下导致的覆写缺失数据并没有解决，线程安全并不是HashMap的本身考虑的，</a></p>
+
       
-        ……
-      
-    </div>
-    <div class="mdui-text-center">
-      <a href="/2021/12/13/Spring-bean-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" class="mdui-btn mdui-btn-raised mdui-btn-dense mdui-color-theme-accent mdui-ripple">Read More</a>
+      <blockquote>
+        
+        <strong>PermaLink: </strong><br><a href="https://axiaokun.github.io/2021/12/18/HashMap%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/">https://axiaokun.github.io/2021/12/18/HashMap线程安全/</a>
+      </blockquote>
     </div>
     <footer class="mdui-card-actions">
       
-        <a class="mdui-ripple article_categories-link" href="/categories/Spring/">Spring</a>
+        <a class="mdui-ripple article_categories-link" href="/categories/java%E5%9F%BA%E7%A1%80/">java基础</a>
       
       
-        <a class="mdui-ripple article_tags-link" href="/tags/ioc/" rel="tag">ioc</a><a class="mdui-ripple article_tags-link" href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" rel="tag">生命周期</a>
+        <a class="mdui-ripple article_tags-link" href="/tags/HashMap/" rel="tag">HashMap</a><a class="mdui-ripple article_tags-link" href="/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a>
       
     </footer>
+    
   </article>
+  
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 
-  <article class="mdui-card mdui-m-b-5 mdui-hoverable">
-    <a href="/2021/12/12/Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E4%B8%8E%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98/">
-      <header class="mdui-card-media mdui-ripple">
-        <img src="/images/random/material-6.png" style="max-height: 240px;">
-        <div class="mdui-card-media-covered">
-          <div class="mdui-card-primary">
-            <div class="mdui-card-primary-title">Spring循环依赖与三级缓存</div>
-            <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2021-12-12 / <i class="iconfont">&#xe601;</i> zkz</div>
-          </div>
-        </div>
-        
-      </header>
-    </a>
-    <div class="mdui-card-content mdui-typo">
-      
-        ……
-      
-    </div>
-    <div class="mdui-text-center">
-      <a href="/2021/12/12/Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E4%B8%8E%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98/" class="mdui-btn mdui-btn-raised mdui-btn-dense mdui-color-theme-accent mdui-ripple">Read More</a>
-    </div>
-    <footer class="mdui-card-actions">
-      
-        <a class="mdui-ripple article_categories-link" href="/categories/Spring/">Spring</a>
-      
-      
-        <a class="mdui-ripple article_tags-link" href="/tags/ioc/" rel="tag">ioc</a><a class="mdui-ripple article_tags-link" href="/tags/%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96/" rel="tag">循环依赖</a>
-      
-    </footer>
-  </article>
+  <script>$("#main article .mdui-card-content img.fancybox").on("click",function(e){$.fancybox.open({src:$(this).attr("src")});});</script>
+
+
+  <nav id="paginator">
+    
+    <div class="spacer"></div>
+    
+      <a rel="next" class="extend next" href="/2021/12/17/java%E6%96%87%E4%BB%B6%E6%98%AF%E6%80%8E%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84/">
+        <span class="mdui-p-x-3" mdui-tooltip="{content: 'java文件是怎么运行的'}">Next</span>
+        <button aria-label="next" class="mdui-btn mdui-btn-raised mdui-btn-icon mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">arrow_forward</i></button>
+      </a>
+    
+  </nav>
+
+
 
 </main>
   <footer id="footer" class="mdui-m-t-5 mdui-p-y-3 mdui-color-theme">
