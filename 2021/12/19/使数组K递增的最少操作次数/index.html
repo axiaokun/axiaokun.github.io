@@ -8,31 +8,32 @@
   <meta name="renderer" content="webkit">
 
   
-  <title>springboot-test之独立配置文件 | 把博客做成字典</title>
+  <title>使数组K递增的最少操作次数 | 把博客做成字典</title>
 
   <link rel="shortcut icon" href="/images/favicon.png">
   <link rel="alternate" href="/atom.xml" title="把博客做成字典" type="application/atom+xml">
-  <meta name="description" content="springboot-test 之 独立配置文件如果我们是自学spring，用spring做一些个人小项目的话，往往会导致我们忽视一些团队相关的问题，例如：分支管理、单元测试之类的细节。这些方面看似对个人开发没什么用处，但是却是大大有益于我们团队开发。 那么本次我们就来简单讲讲spring单元测试以及有关配置 关于单元测试帮大家百度百科一下hh  单元测试（unit testing），是指对软件中">
+  <meta name="description" content="使数组K递增的最少操作次数这次来讲讲第272场周赛的最后一题，经典的最长递增子序列改版（LeetCode链接） 方法： K递增，其实就是可以看做多个递增序列组合在一起{arr[0], arr[0+k],arr[0+2k]……}, {arr[1], arr[1+k],arr[1+2k]……}……..，所以要求使得数组变成K递增的最小操作数，只需要求得每个序列中的最长递增子序列，然后用这个序列长度减去">
 <meta property="og:type" content="article">
-<meta property="og:title" content="springboot-test之独立配置文件">
-<meta property="og:url" content="https://axiaokun.github.io/2021/12/16/springboot-test%E4%B9%8B%E7%8B%AC%E7%AB%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/index.html">
+<meta property="og:title" content="使数组K递增的最少操作次数">
+<meta property="og:url" content="https://axiaokun.github.io/2021/12/19/%E4%BD%BF%E6%95%B0%E7%BB%84K%E9%80%92%E5%A2%9E%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/index.html">
 <meta property="og:site_name" content="把博客做成字典">
-<meta property="og:description" content="springboot-test 之 独立配置文件如果我们是自学spring，用spring做一些个人小项目的话，往往会导致我们忽视一些团队相关的问题，例如：分支管理、单元测试之类的细节。这些方面看似对个人开发没什么用处，但是却是大大有益于我们团队开发。 那么本次我们就来简单讲讲spring单元测试以及有关配置 关于单元测试帮大家百度百科一下hh  单元测试（unit testing），是指对软件中">
+<meta property="og:description" content="使数组K递增的最少操作次数这次来讲讲第272场周赛的最后一题，经典的最长递增子序列改版（LeetCode链接） 方法： K递增，其实就是可以看做多个递增序列组合在一起{arr[0], arr[0+k],arr[0+2k]……}, {arr[1], arr[1+k],arr[1+2k]……}……..，所以要求使得数组变成K递增的最小操作数，只需要求得每个序列中的最长递增子序列，然后用这个序列长度减去">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-12-16T13:36:52.000Z">
-<meta property="article:modified_time" content="2021-12-16T13:38:50.132Z">
+<meta property="article:published_time" content="2021-12-19T08:43:19.000Z">
+<meta property="article:modified_time" content="2021-12-19T08:57:20.605Z">
 <meta property="article:author" content="zkz">
-<meta property="article:tag" content="测试">
-<meta property="article:tag" content="配置">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="LIS">
+<meta property="article:tag" content="二分">
 <meta name="twitter:card" content="summary">
 
-  <meta name="keywords" content=",测试,配置">
+  <meta name="keywords" content=",动态规划,LIS,二分">
   <meta name="format-detection" content="telephone=no,email=no">
   <meta name="theme-color" content="#9C27B0">
 
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="application-name" content="把博客做成字典">
-  <meta name="msapplication-starturl" content="https://axiaokun.github.io/2021/12/16/springboot-test%E4%B9%8B%E7%8B%AC%E7%AB%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">
+  <meta name="msapplication-starturl" content="https://axiaokun.github.io/2021/12/19/%E4%BD%BF%E6%95%B0%E7%BB%84K%E9%80%92%E5%A2%9E%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/">
   <meta name="msapplication-navbutton-color" content="#9C27B0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="把博客做成字典">
@@ -40,7 +41,7 @@
   <link rel="apple-touch-icon" href="/images/favicon.png">
 
   
-    <link rel="canonical" href="https://axiaokun.github.io/2021/12/16/springboot-test%E4%B9%8B%E7%8B%AC%E7%AB%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">
+    <link rel="canonical" href="https://axiaokun.github.io/2021/12/19/%E4%BD%BF%E6%95%B0%E7%BB%84K%E9%80%92%E5%A2%9E%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/">
   
 
   
@@ -173,11 +174,11 @@
   <style>#main article .mdui-card-content .center-block{display:block!important;margin-right:auto!important;margin-left:auto!important}</style>
   <article class="mdui-card mdui-m-b-5">
     <header class="mdui-card-media">
-      <img src="/images/random/material-14.png" style="max-height: 240px;">
+      <img src="/images/random/material-15.png" style="max-height: 240px;">
       <div class="mdui-card-media-covered">
         <div class="mdui-card-primary">
-          <div class="mdui-card-primary-title">springboot-test之独立配置文件</div>
-          <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2021-12-16 / <i class="iconfont">&#xe601;</i> zkz</div>
+          <div class="mdui-card-primary-title">使数组K递增的最少操作次数</div>
+          <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2021-12-19 / <i class="iconfont">&#xe601;</i> zkz</div>
         </div>
       </div>
       <div class="mdui-card-menu">
@@ -189,7 +190,7 @@
             
             <li class="mdui-menu-item" disabled>
               
-                <img src="https://chart.googleapis.com/chart?cht=qr&chs=246x246&chl=https://axiaokun.github.io/2021/12/16/springboot-test%E4%B9%8B%E7%8B%AC%E7%AB%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/&chld=M|2">
+                <img src="https://chart.googleapis.com/chart?cht=qr&chs=246x246&chl=https://axiaokun.github.io/2021/12/19/%E4%BD%BF%E6%95%B0%E7%BB%84K%E9%80%92%E5%A2%9E%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/&chld=M|2">
               
             </li>
           </ul>
@@ -198,64 +199,67 @@
           <button class="mdui-btn mdui-btn-icon mdui-text-color-white" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="mdui-icon material-icons">share</i></button>
           <ul class="mdui-menu" id="share_menu">
             <li class="mdui-menu-item">
-              <a href="http://service.weibo.com/share/share.php?appkey=&title=springboot-test之独立配置文件&url=https://axiaokun.github.io/2021/12/16/springboot-test%E4%B9%8B%E7%8B%AC%E7%AB%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/&pic=https://axiaokun.github.io/images/favicon.png&searchPic=false&style=simple" target="_blank" class="mdui-ripple">Share to Weibo</a>
+              <a href="http://service.weibo.com/share/share.php?appkey=&title=使数组K递增的最少操作次数&url=https://axiaokun.github.io/2021/12/19/%E4%BD%BF%E6%95%B0%E7%BB%84K%E9%80%92%E5%A2%9E%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/&pic=https://axiaokun.github.io/images/favicon.png&searchPic=false&style=simple" target="_blank" class="mdui-ripple">Share to Weibo</a>
             </li>
             <li class="mdui-menu-item">
-              <a href="https://twitter.com/intent/tweet?text=springboot-test之独立配置文件&url=https://axiaokun.github.io/2021/12/16/springboot-test%E4%B9%8B%E7%8B%AC%E7%AB%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/&via=zkz" target="_blank" class="mdui-ripple">Share to Twitter</a>
+              <a href="https://twitter.com/intent/tweet?text=使数组K递增的最少操作次数&url=https://axiaokun.github.io/2021/12/19/%E4%BD%BF%E6%95%B0%E7%BB%84K%E9%80%92%E5%A2%9E%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/&via=zkz" target="_blank" class="mdui-ripple">Share to Twitter</a>
             </li>
             <li class="mdui-menu-item">
-              <a href="https://www.facebook.com/sharer/sharer.php?u=https://axiaokun.github.io/2021/12/16/springboot-test%E4%B9%8B%E7%8B%AC%E7%AB%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" target="_blank" class="mdui-ripple">Share to Facebook</a>
+              <a href="https://www.facebook.com/sharer/sharer.php?u=https://axiaokun.github.io/2021/12/19/%E4%BD%BF%E6%95%B0%E7%BB%84K%E9%80%92%E5%A2%9E%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/" target="_blank" class="mdui-ripple">Share to Facebook</a>
             </li>
             <li class="mdui-menu-item">
-              <a href="https://plus.google.com/share?url=https://axiaokun.github.io/2021/12/16/springboot-test%E4%B9%8B%E7%8B%AC%E7%AB%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" target="_blank" class="mdui-ripple">Share to Google+</a>
+              <a href="https://plus.google.com/share?url=https://axiaokun.github.io/2021/12/19/%E4%BD%BF%E6%95%B0%E7%BB%84K%E9%80%92%E5%A2%9E%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/" target="_blank" class="mdui-ripple">Share to Google+</a>
             </li>
             <li class="mdui-menu-item">
-              <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://axiaokun.github.io/2021/12/16/springboot-test%E4%B9%8B%E7%8B%AC%E7%AB%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/&title=springboot-test之独立配置文件" target="_blank" class="mdui-ripple">Share to LinkedIn</a>
+              <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://axiaokun.github.io/2021/12/19/%E4%BD%BF%E6%95%B0%E7%BB%84K%E9%80%92%E5%A2%9E%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/&title=使数组K递增的最少操作次数" target="_blank" class="mdui-ripple">Share to LinkedIn</a>
             </li>
             <li class="mdui-menu-item">
-              <a href="http://connect.qq.com/widget/shareqq/index.html?site=把博客做成字典&title=springboot-test之独立配置文件&pics=https://axiaokun.github.io/images/favicon.png&url=https://axiaokun.github.io/2021/12/16/springboot-test%E4%B9%8B%E7%8B%AC%E7%AB%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" target="_blank" class="mdui-ripple">Share to QQ</a>
+              <a href="http://connect.qq.com/widget/shareqq/index.html?site=把博客做成字典&title=使数组K递增的最少操作次数&pics=https://axiaokun.github.io/images/favicon.png&url=https://axiaokun.github.io/2021/12/19/%E4%BD%BF%E6%95%B0%E7%BB%84K%E9%80%92%E5%A2%9E%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/" target="_blank" class="mdui-ripple">Share to QQ</a>
             </li>
             <li class="mdui-menu-item">
-              <a href="https://telegram.me/share/url?url=https://axiaokun.github.io/2021/12/16/springboot-test%E4%B9%8B%E7%8B%AC%E7%AB%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/&text=springboot-test之独立配置文件" target="_blank" class="mdui-ripple">Share to Telegram</a>
+              <a href="https://telegram.me/share/url?url=https://axiaokun.github.io/2021/12/19/%E4%BD%BF%E6%95%B0%E7%BB%84K%E9%80%92%E5%A2%9E%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/&text=使数组K递增的最少操作次数" target="_blank" class="mdui-ripple">Share to Telegram</a>
             </li>
           </ul>
         
       </div>
     </header>
     <div class="mdui-card-content mdui-typo">
-      <h1 id="springboot-test-之-独立配置文件"><a href="#springboot-test-之-独立配置文件" class="headerlink" title="springboot-test 之 独立配置文件"></a>springboot-test 之 独立配置文件</h1><p>如果我们是自学spring，用spring做一些个人小项目的话，往往会导致我们忽视一些团队相关的问题，例如：分支管理、单元测试之类的细节。这些方面看似对个人开发没什么用处，但是却是大大有益于我们团队开发。</p>
-<p>那么本次我们就来简单讲讲spring单元测试以及有关配置</p>
-<h2 id="关于单元测试"><a href="#关于单元测试" class="headerlink" title="关于单元测试"></a>关于单元测试</h2><p>帮大家百度百科一下hh</p>
+      <h1 id="使数组K递增的最少操作次数"><a href="#使数组K递增的最少操作次数" class="headerlink" title="使数组K递增的最少操作次数"></a>使数组K递增的最少操作次数</h1><p>这次来讲讲第272场周赛的最后一题，经典的最长递增子序列改版（<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/minimum-operations-to-make-the-array-k-increasing/">LeetCode链接</a>）</p>
+<p>方法：</p>
+<p>K递增，其实就是可以看做多个递增序列组合在一起{arr[0], arr[0+k],arr[0+2k]……}, {arr[1], arr[1+k],arr[1+2k]……}……..，所以要求使得数组变成K递增的最小操作数，只需要求得每个序列中的最长递增子序列，然后用这个序列长度减去它的最长递增子序列得到该序列的操作数，将各个序列的操作数求和即可</p>
+<p>可以看到提示<code>1 &lt;= arr.length &lt;= 100000</code>，如果单纯用动态规划N^2版本的求最长递增子序列可能会超时，所以这里使用dp + 二分</p>
+<ul>
+<li><p>复习一下   动态规划 +二分搜索 解最长递增子序列</p>
 <blockquote>
-<p>单元测试（unit testing），是指对软件中的最小可测试单元进行检查和验证。对于单元测试中单元的含义，一般来说，要根据实际情况去判定其具体含义，如C语言中单元指一个函数，Java里单元指一个类，图形化的软件中可以指一个窗口或一个菜单等。总的来说，单元就是人为规定的最小的被测功能模块。单元测试是在软件开发过程中要进行的最低级别的测试活动，软件的独立单元将在与程序的其他部分相隔离的情况下进行测试。</p>
-<p>单元测试联系起来的另外一些开发活动包括<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BB%A3%E7%A0%81%E8%B5%B0%E8%AF%BB/5869125">代码走读</a>（Code review)，静态分析（Static analysis)和动态分析（Dynamic analysis)。静态分析就是对软件的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%BA%90%E4%BB%A3%E7%A0%81/3814213">源代码</a>进行研读，查找错误或收集一些度量数据，并不需要对代码进行编译和执行。动态分析就是通过观察软件运行时的动作，来提供执行跟踪，时间分析，以及<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%B5%8B%E8%AF%95%E8%A6%86%E7%9B%96">测试覆盖</a>度方面的信息。</p>
-</blockquote>
-<p>尤其是测试覆盖率，这个指标很重要。至于为什么要单元测试的话题，可能平时个人开发会觉得postman很方便，但是！！！在做系统的自动化持续集成的时候，会要求自动的做单元测试，只有所有的单元测试都跑通了，才能打包构建。比如：使用maven在打包之前将所有的测试用例执行一遍。这里重点是<strong>自动化</strong>，postman这种工具很难插入到持续集成的自动化流程中去。</p>
-<p>同时，在了解单元测试后，可以了解<strong>白盒测试</strong>，<strong>集成测试</strong>，<strong>黑盒测试</strong>等概念！！！</p>
-<h2 id="springboot单元"><a href="#springboot单元" class="headerlink" title="springboot单元"></a>springboot单元</h2><p>对于spring中的单元测试，spring支持启动单元测试的同时也启动spring（Spring TestContext Framework 提供一致的 Spring<code>ApplicationContext</code>实例和<code>WebApplicationContext</code>实例加载 以及这些上下文的缓存），利用IoC你可以很方便的进行单元测试。</p>
-<p>具体学习地址：</p>
-<p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.3.15-SNAPSHOT/reference/html/testing.html#testing">官方文档是最好的学习资料1</a></p>
-<p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.3.12.RELEASE/reference/html/spring-boot-features.html#boot-features-testing">官方文档是最好的学习资料2</a></p>
-<h2 id="独立yaml配置"><a href="#独立yaml配置" class="headerlink" title="独立yaml配置"></a>独立yaml配置</h2><p>在maven工程结构中，src/mian/java 存放源码;src/main/resource 存放配置文件等;src/test/java 存放测试代码;src/test/resource 存放测试配置文件。</p>
-<p>如果在src/test/resource，配置yaml，那么我们启动单元测试的时候加载的配置文件就是这里的配置文件。如果我们没有配置，那么自动加载src/main/resource的配置文件。</p>
-<p>为什么我们需要单独配置？</p>
-<p>在项目开发过程中，一般我们开发接口，都需要编写对应的单元测试。而测试启动的环境和实际部署的时候是不一样的，例如数据库（一般有测试数据库，避免污染实际数据库），缓存之类的，因此我们的配置文件内容一般是不相同的。虽然我们可以创建多个application-xxx.yaml子配置文件，通过application.yaml</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  profiles:</span><br><span class="line">    active: xxx  # 切换配置文件</span><br></pre></td></tr></table></figure>
+<pre><code>dp做法改进版，单纯的动态规划中需要用到两个for，导致时间复杂度达到N^2
+优化点：在0 到 i-1 之间寻找最长的子序列长度  遍历改为二分查找
+可以将这个优化点由N变成logN，最后复杂度达到NlogN
 
-<p>来切换配置文件，但是每次单元测试都要在这里改动显得有点麻烦。</p>
+使用数组tail，tail[i] 记录 i + 1长度的当前最长子序列length的最后一项
+当遍历到nums[k]时，在tail([0, length)范围内的序列)中寻找大于等于nums[k]的最接近值
+如果没有的话, 将nums[k]作为tail[length]的值,当前length加一
+如果有的话，替换为nums[k]，这样就有概率替换到最后一项，因为最长递增子序列的最后一项值越小，后面序列增长的可能性越大
+</code></pre>
+</blockquote>
+</li>
+</ul>
+<p>详细推导过程可以看这篇题解：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-increasing-subsequence/solution/zui-chang-shang-sheng-zi-xu-lie-dong-tai-gui-hua-2/">https://leetcode-cn.com/problems/longest-increasing-subsequence/solution/zui-chang-shang-sheng-zi-xu-lie-dong-tai-gui-hua-2/</a></p>
+<p>解题代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">kIncreasing</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; i++)&#123;</span><br><span class="line">			<span class="comment">// 获得i下标起始的K递增序列</span></span><br><span class="line">            List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            <span class="keyword">int</span> j = i;</span><br><span class="line">            <span class="keyword">while</span> (j &lt; arr.length)&#123;</span><br><span class="line">                list.add(arr[j]);</span><br><span class="line">                j += k;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (list.size() == <span class="number">1</span>)&#123;<span class="keyword">continue</span>;&#125;</span><br><span class="line"></span><br><span class="line">            sum += dpAndBinary(list);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 求解最长递增子序列</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">dpAndBinary</span><span class="params">(List&lt;Integer&gt; list)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span>[] tail = <span class="keyword">new</span> <span class="keyword">int</span>[list.size()];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i : list)&#123;</span><br><span class="line">            <span class="keyword">int</span> left = <span class="number">0</span>, right = length;</span><br><span class="line">            <span class="keyword">while</span> (left &lt; right)&#123;</span><br><span class="line">                <span class="keyword">int</span> mid = (left + right) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">                <span class="comment">// 非严格递增  &lt;=   也就是如果是因为等于目标值，使得left == length跳出循环的话，该值也能被加到子序列中</span></span><br><span class="line">                <span class="keyword">if</span> (tail[mid] &lt;= i)&#123;left = mid + <span class="number">1</span>;&#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;right = mid;&#125;</span><br><span class="line">            &#125;</span><br><span class="line">            tail[left] = i;</span><br><span class="line">            <span class="keyword">if</span> (length == right)&#123;length++;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">		<span class="comment">// 序列长度 - 最长递增子序列长度 = 操作数</span></span><br><span class="line">        <span class="keyword">return</span> list.size() - length;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       
       <blockquote>
         
-        <strong>PermaLink: </strong><br><a href="https://axiaokun.github.io/2021/12/16/springboot-test%E4%B9%8B%E7%8B%AC%E7%AB%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">https://axiaokun.github.io/2021/12/16/springboot-test之独立配置文件/</a>
+        <strong>PermaLink: </strong><br><a href="https://axiaokun.github.io/2021/12/19/%E4%BD%BF%E6%95%B0%E7%BB%84K%E9%80%92%E5%A2%9E%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/">https://axiaokun.github.io/2021/12/19/使数组K递增的最少操作次数/</a>
       </blockquote>
     </div>
     <footer class="mdui-card-actions">
       
-        <a class="mdui-ripple article_categories-link" href="/categories/Spring/">Spring</a>
+        <a class="mdui-ripple article_categories-link" href="/categories/LeetCode/">LeetCode</a><a class="mdui-ripple article_categories-link" href="/categories/LeetCode/%E7%AE%97%E6%B3%95/">算法</a>
       
       
-        <a class="mdui-ripple article_tags-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a><a class="mdui-ripple article_tags-link" href="/tags/%E9%85%8D%E7%BD%AE/" rel="tag">配置</a>
+        <a class="mdui-ripple article_tags-link" href="/tags/LIS/" rel="tag">LIS</a><a class="mdui-ripple article_tags-link" href="/tags/%E4%BA%8C%E5%88%86/" rel="tag">二分</a><a class="mdui-ripple article_tags-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a>
       
     </footer>
     
@@ -269,15 +273,10 @@
 
   <nav id="paginator">
     
-      <a rel="prev" class="extend prev" href="/2021/12/17/%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/">
-        <button aria-label="prev" class="mdui-btn mdui-btn-raised mdui-btn-icon mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">arrow_back</i></button>
-        <span class="mdui-p-x-3" mdui-tooltip="{content: '进程间通信'}">Prev</span>
-      </a>
-    
     <div class="spacer"></div>
     
-      <a rel="next" class="extend next" href="/2021/12/13/%E5%A0%86%E6%8E%92%E5%BA%8F/">
-        <span class="mdui-p-x-3" mdui-tooltip="{content: '堆排序'}">Next</span>
+      <a rel="next" class="extend next" href="/2021/12/19/%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97/">
+        <span class="mdui-p-x-3" mdui-tooltip="{content: '最长递增子序列'}">Next</span>
         <button aria-label="next" class="mdui-btn mdui-btn-raised mdui-btn-icon mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">arrow_forward</i></button>
       </a>
     
