@@ -8,31 +8,30 @@
   <meta name="renderer" content="webkit">
 
   
-  <title>Spring循环依赖与三级缓存 | 把博客做成字典</title>
+  <title>HTTP | 把博客做成字典</title>
 
   <link rel="shortcut icon" href="/images/favicon.png">
   <link rel="alternate" href="/atom.xml" title="把博客做成字典" type="application/atom+xml">
-  <meta name="description" content="Spring循环依赖与三级缓存首先，我们需要先了解一下三级缓存 123456789101112131415public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements SingletonBeanRegistry &amp;#123;	&#x2F;** Cache of singleton objects: bean">
+  <meta name="description" content="HTTP如何理解HTTP是无状态的无状态：可以理解为当浏览器向服务器发送请求，服务器响应了；浏览器又向相同服务器发起请求，服务器也会响应，但是服务器不会知道你是刚才那个浏览器 如何保证HTTP的状态可以利用Cookie 和 Session  Cookie 和 Session 都是用来跟踪浏览器用户身份的会话方式 HTTP&#x2F;1.0，1.1，2.0的区别从网络IO上看：短连接（可以强制开启长连接，设置">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring循环依赖与三级缓存">
-<meta property="og:url" content="https://axiaokun.github.io/2021/12/12/Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E4%B8%8E%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98/index.html">
+<meta property="og:title" content="HTTP">
+<meta property="og:url" content="https://axiaokun.github.io/2022/01/17/HTTP/index.html">
 <meta property="og:site_name" content="把博客做成字典">
-<meta property="og:description" content="Spring循环依赖与三级缓存首先，我们需要先了解一下三级缓存 123456789101112131415public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements SingletonBeanRegistry &amp;#123;	&#x2F;** Cache of singleton objects: bean">
+<meta property="og:description" content="HTTP如何理解HTTP是无状态的无状态：可以理解为当浏览器向服务器发送请求，服务器响应了；浏览器又向相同服务器发起请求，服务器也会响应，但是服务器不会知道你是刚才那个浏览器 如何保证HTTP的状态可以利用Cookie 和 Session  Cookie 和 Session 都是用来跟踪浏览器用户身份的会话方式 HTTP&#x2F;1.0，1.1，2.0的区别从网络IO上看：短连接（可以强制开启长连接，设置">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-12-12T07:24:13.000Z">
-<meta property="article:modified_time" content="2021-12-12T14:35:59.547Z">
+<meta property="article:published_time" content="2022-01-17T07:11:50.000Z">
+<meta property="article:modified_time" content="2022-01-17T12:43:06.988Z">
 <meta property="article:author" content="zkz">
-<meta property="article:tag" content="ioc">
-<meta property="article:tag" content="循环依赖">
+<meta property="article:tag" content="HTTP">
 <meta name="twitter:card" content="summary">
 
-  <meta name="keywords" content=",ioc,循环依赖">
+  <meta name="keywords" content=",HTTP">
   <meta name="format-detection" content="telephone=no,email=no">
   <meta name="theme-color" content="#9C27B0">
 
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="application-name" content="把博客做成字典">
-  <meta name="msapplication-starturl" content="https://axiaokun.github.io/2021/12/12/Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E4%B8%8E%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98/">
+  <meta name="msapplication-starturl" content="https://axiaokun.github.io/2022/01/17/HTTP/">
   <meta name="msapplication-navbutton-color" content="#9C27B0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="把博客做成字典">
@@ -40,7 +39,7 @@
   <link rel="apple-touch-icon" href="/images/favicon.png">
 
   
-    <link rel="canonical" href="https://axiaokun.github.io/2021/12/12/Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E4%B8%8E%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98/">
+    <link rel="canonical" href="https://axiaokun.github.io/2022/01/17/HTTP/">
   
 
   
@@ -173,11 +172,11 @@
   <style>#main article .mdui-card-content .center-block{display:block!important;margin-right:auto!important;margin-left:auto!important}</style>
   <article class="mdui-card mdui-m-b-5">
     <header class="mdui-card-media">
-      <img src="/images/random/material-10.png" style="max-height: 240px;">
+      <img src="/images/random/material-4.png" style="max-height: 240px;">
       <div class="mdui-card-media-covered">
         <div class="mdui-card-primary">
-          <div class="mdui-card-primary-title">Spring循环依赖与三级缓存</div>
-          <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2021-12-12 / <i class="iconfont">&#xe601;</i> zkz</div>
+          <div class="mdui-card-primary-title">HTTP</div>
+          <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2022-01-17 / <i class="iconfont">&#xe601;</i> zkz</div>
         </div>
       </div>
       <div class="mdui-card-menu">
@@ -189,7 +188,7 @@
             
             <li class="mdui-menu-item" disabled>
               
-                <img src="https://chart.googleapis.com/chart?cht=qr&chs=246x246&chl=https://axiaokun.github.io/2021/12/12/Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E4%B8%8E%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98/&chld=M|2">
+                <img src="https://chart.googleapis.com/chart?cht=qr&chs=246x246&chl=https://axiaokun.github.io/2022/01/17/HTTP/&chld=M|2">
               
             </li>
           </ul>
@@ -198,58 +197,58 @@
           <button class="mdui-btn mdui-btn-icon mdui-text-color-white" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="mdui-icon material-icons">share</i></button>
           <ul class="mdui-menu" id="share_menu">
             <li class="mdui-menu-item">
-              <a href="http://service.weibo.com/share/share.php?appkey=&title=Spring循环依赖与三级缓存&url=https://axiaokun.github.io/2021/12/12/Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E4%B8%8E%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98/&pic=https://axiaokun.github.io/images/favicon.png&searchPic=false&style=simple" target="_blank" class="mdui-ripple">Share to Weibo</a>
+              <a href="http://service.weibo.com/share/share.php?appkey=&title=HTTP&url=https://axiaokun.github.io/2022/01/17/HTTP/&pic=https://axiaokun.github.io/images/favicon.png&searchPic=false&style=simple" target="_blank" class="mdui-ripple">Share to Weibo</a>
             </li>
             <li class="mdui-menu-item">
-              <a href="https://twitter.com/intent/tweet?text=Spring循环依赖与三级缓存&url=https://axiaokun.github.io/2021/12/12/Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E4%B8%8E%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98/&via=zkz" target="_blank" class="mdui-ripple">Share to Twitter</a>
+              <a href="https://twitter.com/intent/tweet?text=HTTP&url=https://axiaokun.github.io/2022/01/17/HTTP/&via=zkz" target="_blank" class="mdui-ripple">Share to Twitter</a>
             </li>
             <li class="mdui-menu-item">
-              <a href="https://www.facebook.com/sharer/sharer.php?u=https://axiaokun.github.io/2021/12/12/Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E4%B8%8E%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98/" target="_blank" class="mdui-ripple">Share to Facebook</a>
+              <a href="https://www.facebook.com/sharer/sharer.php?u=https://axiaokun.github.io/2022/01/17/HTTP/" target="_blank" class="mdui-ripple">Share to Facebook</a>
             </li>
             <li class="mdui-menu-item">
-              <a href="https://plus.google.com/share?url=https://axiaokun.github.io/2021/12/12/Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E4%B8%8E%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98/" target="_blank" class="mdui-ripple">Share to Google+</a>
+              <a href="https://plus.google.com/share?url=https://axiaokun.github.io/2022/01/17/HTTP/" target="_blank" class="mdui-ripple">Share to Google+</a>
             </li>
             <li class="mdui-menu-item">
-              <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://axiaokun.github.io/2021/12/12/Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E4%B8%8E%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98/&title=Spring循环依赖与三级缓存" target="_blank" class="mdui-ripple">Share to LinkedIn</a>
+              <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://axiaokun.github.io/2022/01/17/HTTP/&title=HTTP" target="_blank" class="mdui-ripple">Share to LinkedIn</a>
             </li>
             <li class="mdui-menu-item">
-              <a href="http://connect.qq.com/widget/shareqq/index.html?site=把博客做成字典&title=Spring循环依赖与三级缓存&pics=https://axiaokun.github.io/images/favicon.png&url=https://axiaokun.github.io/2021/12/12/Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E4%B8%8E%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98/" target="_blank" class="mdui-ripple">Share to QQ</a>
+              <a href="http://connect.qq.com/widget/shareqq/index.html?site=把博客做成字典&title=HTTP&pics=https://axiaokun.github.io/images/favicon.png&url=https://axiaokun.github.io/2022/01/17/HTTP/" target="_blank" class="mdui-ripple">Share to QQ</a>
             </li>
             <li class="mdui-menu-item">
-              <a href="https://telegram.me/share/url?url=https://axiaokun.github.io/2021/12/12/Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E4%B8%8E%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98/&text=Spring循环依赖与三级缓存" target="_blank" class="mdui-ripple">Share to Telegram</a>
+              <a href="https://telegram.me/share/url?url=https://axiaokun.github.io/2022/01/17/HTTP/&text=HTTP" target="_blank" class="mdui-ripple">Share to Telegram</a>
             </li>
           </ul>
         
       </div>
     </header>
     <div class="mdui-card-content mdui-typo">
-      <h1 id="Spring循环依赖与三级缓存"><a href="#Spring循环依赖与三级缓存" class="headerlink" title="Spring循环依赖与三级缓存"></a>Spring循环依赖与三级缓存</h1><p>首先，我们需要先了解一下三级缓存</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DefaultSingletonBeanRegistry</span> <span class="keyword">extends</span> <span class="title">SimpleAliasRegistry</span> <span class="keyword">implements</span> <span class="title">SingletonBeanRegistry</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/** Cache of singleton objects: bean name to bean instance. */</span></span><br><span class="line">	<span class="comment">//一级缓存</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, Object&gt; singletonObjects = <span class="keyword">new</span> ConcurrentHashMap&lt;&gt;(<span class="number">256</span>);</span><br><span class="line">	<span class="comment">//三级缓存</span></span><br><span class="line">	<span class="comment">/** Cache of singleton factories: bean name to ObjectFactory. */</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, ObjectFactory&lt;?&gt;&gt; singletonFactories = <span class="keyword">new</span> HashMap&lt;&gt;(<span class="number">16</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/** Cache of early singleton objects: bean name to bean instance. */</span></span><br><span class="line">	<span class="comment">//二级缓存</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, Object&gt; earlySingletonObjects = <span class="keyword">new</span> HashMap&lt;&gt;(<span class="number">16</span>);</span><br><span class="line">	</span><br><span class="line">    <span class="comment">//省略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p><strong>一级缓存 - singletonObjects</strong> :已经创建完成的单例对象的缓存，是对外使用的</p>
-<p><strong>二级缓存 - earlySingletonObjects</strong>:未完成的单例对象缓存（通过动态代理逻辑增强后的对象，但是属性没有初始化完成）</p>
-<p><strong>三级缓存 - singletonFactories</strong>：单例工厂的缓存</p>
-</blockquote>
-<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6895753832815394824">https://juejin.cn/post/6895753832815394824</a></p>
-<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6904698935277780999">https://juejin.cn/post/6904698935277780999</a></p>
-<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6942698857260122143">https://juejin.cn/post/6942698857260122143</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/semi-sub/p/13548479.html">https://www.cnblogs.com/semi-sub/p/13548479.html</a></p>
+      <h1 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h1><h2 id="如何理解HTTP是无状态的"><a href="#如何理解HTTP是无状态的" class="headerlink" title="如何理解HTTP是无状态的"></a>如何理解HTTP是无状态的</h2><p>无状态：可以理解为当浏览器向服务器发送请求，服务器响应了；浏览器又向相同服务器发起请求，服务器也会响应，但是服务器不会知道你是刚才那个浏览器</p>
+<h2 id="如何保证HTTP的状态"><a href="#如何保证HTTP的状态" class="headerlink" title="如何保证HTTP的状态"></a>如何保证HTTP的状态</h2><p>可以利用<code>Cookie</code> 和 <code>Session</code> </p>
+<p><code>Cookie</code> 和 <code>Session</code> 都是用来跟踪浏览器用户身份的会话方式</p>
+<h2 id="HTTP-1-0，1-1，2-0的区别"><a href="#HTTP-1-0，1-1，2-0的区别" class="headerlink" title="HTTP/1.0，1.1，2.0的区别"></a>HTTP/1.0，1.1，2.0的区别</h2><p>从网络IO上看：短连接（可以强制开启长连接，设置<code>Connection: keep-alive</code>）  =&gt;  长连接  =&gt;  多路复用</p>
+<h3 id="HTTP1-1特点"><a href="#HTTP1-1特点" class="headerlink" title="HTTP1.1特点"></a>HTTP1.1特点</h3><ul>
+<li>默认使用持久连接，即TCP默认不关闭，原理主要利用TCP的保活机制</li>
+<li>使用管道化技术pipeLining：可以在等待上一个请求响应的同时，发送下一个请求，其实就是把多个HTTP请求放到一个TCP连接中——发送；不过服务端还是按照发送请求的顺序处理请求，客户端还是按照发送请求的顺序来接受响应</li>
+</ul>
+<h3 id="HTTP2-0特点"><a href="#HTTP2-0特点" class="headerlink" title="HTTP2.0特点"></a>HTTP2.0特点</h3><ul>
+<li>头部压缩，HTTP协议不带有状态，每次请求都必须附上所有信息。Http/2.0引入了头信息压缩机制，使用gzip或compress压缩后再发送</li>
+<li>二进制协议，1.1版本的头信息是文本（ASCII编码），数据体可以是文本或者二进制；2.0中，头信息和数据体都是二进制</li>
+<li>多路复用，在一个连接里，客户端和浏览器都可以同时发送多个请求或回应，而且不用按照顺序一一对应</li>
+<li>服务端推送，允许服务器未经请求，主动向客户端发送资源</li>
+</ul>
 
       
       <blockquote>
         
-        <strong>PermaLink: </strong><br><a href="https://axiaokun.github.io/2021/12/12/Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E4%B8%8E%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98/">https://axiaokun.github.io/2021/12/12/Spring循环依赖与三级缓存/</a>
+        <strong>PermaLink: </strong><br><a href="https://axiaokun.github.io/2022/01/17/HTTP/">https://axiaokun.github.io/2022/01/17/HTTP/</a>
       </blockquote>
     </div>
     <footer class="mdui-card-actions">
       
-        <a class="mdui-ripple article_categories-link" href="/categories/Spring/">Spring</a>
+        <a class="mdui-ripple article_categories-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
       
       
-        <a class="mdui-ripple article_tags-link" href="/tags/ioc/" rel="tag">ioc</a><a class="mdui-ripple article_tags-link" href="/tags/%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96/" rel="tag">循环依赖</a>
+        <a class="mdui-ripple article_tags-link" href="/tags/HTTP/" rel="tag">HTTP</a>
       
     </footer>
     
@@ -263,15 +262,15 @@
 
   <nav id="paginator">
     
-      <a rel="prev" class="extend prev" href="/2021/12/13/Spring-bean-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
+      <a rel="prev" class="extend prev" href="/2022/01/17/Redis-%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%A5%E5%8F%8A%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
         <button aria-label="prev" class="mdui-btn mdui-btn-raised mdui-btn-icon mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">arrow_back</i></button>
-        <span class="mdui-p-x-3" mdui-tooltip="{content: 'Spring bean 生命周期'}">Prev</span>
+        <span class="mdui-p-x-3" mdui-tooltip="{content: 'Redis 常见数据结构以及底层数据结构'}">Prev</span>
       </a>
     
     <div class="spacer"></div>
     
-      <a rel="next" class="extend next" href="/2021/12/12/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/">
-        <span class="mdui-p-x-3" mdui-tooltip="{content: '反转链表'}">Next</span>
+      <a rel="next" class="extend next" href="/2022/01/17/HTTP%E4%B8%8EHTTPS/">
+        <span class="mdui-p-x-3" mdui-tooltip="{content: 'HTTP与HTTPS'}">Next</span>
         <button aria-label="next" class="mdui-btn mdui-btn-raised mdui-btn-icon mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">arrow_forward</i></button>
       </a>
     
