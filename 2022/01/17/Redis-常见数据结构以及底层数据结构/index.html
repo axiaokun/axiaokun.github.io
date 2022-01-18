@@ -21,7 +21,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://github.com/axiaokun/image/blob/main/blog/images/%E8%B7%B3%E8%A1%A8.png?raw=true">
 <meta property="article:published_time" content="2022-01-17T12:44:15.000Z">
-<meta property="article:modified_time" content="2022-01-17T14:04:12.039Z">
+<meta property="article:modified_time" content="2022-01-18T13:10:26.617Z">
 <meta property="article:author" content="zkz">
 <meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary">
@@ -174,7 +174,7 @@
   <style>#main article .mdui-card-content .center-block{display:block!important;margin-right:auto!important;margin-left:auto!important}</style>
   <article class="mdui-card mdui-m-b-5">
     <header class="mdui-card-media">
-      <img src="/images/random/material-1.png" style="max-height: 240px;">
+      <img src="/images/random/material-9.png" style="max-height: 240px;">
       <div class="mdui-card-media-covered">
         <div class="mdui-card-primary">
           <div class="mdui-card-primary-title">Redis 常见数据结构以及底层数据结构</div>
@@ -252,7 +252,60 @@
 <li>时间复杂度为 $O(log_2n)$，空间复杂度为 $O(n)$</li>
 </ul>
 <p>不过插入、删除会破坏平衡结构，导致跳表退化，这个不太懂跳表要怎么维护结构？</p>
-<h2 id="压缩列表"><a href="#压缩列表" class="headerlink" title="压缩列表"></a>压缩列表</h2>
+<h2 id="压缩列表"><a href="#压缩列表" class="headerlink" title="压缩列表"></a>压缩列表</h2><p>压缩列表ziplist，是Redis为了节省内存而开发的，由一系列特殊编码的连续内存块组成的顺序型数据结构，一个压缩列表可以包含任意多个节点entry，每个节点可以保存一个字节数组或者一个整数值</p>
+<p>原理：压缩列表并不是用某种算法对数据进行压缩，而是将数据按照一定规则编码在一块连续的内存区域，目的是节省内存</p>
+<p>zlbytes    |    zltail    |    zllen    |    entry1    |    entry2    |    …    |    entryN    |    zlend</p>
+<p>zltail    记录压缩列表尾节点距离压缩列表的起始地址有多少字节</p>
+<p>每个entry的构成为：</p>
+<p>previous_entry_ength    |    encoding    |    content</p>
+<p>previous_entry_ength    记录压缩列表前一个字节的长度</p>
+<p>注意在插入新元素时，内存空间不足会引起<strong>连锁更新</strong>，效率低，因此压缩列表只会用于保存节点数量不多的情况下</p>
+<h2 id="整数集合"><a href="#整数集合" class="headerlink" title="整数集合"></a>整数集合</h2><p>Redis自己设计的存储结构，集合键的底层实现之一，当一个集合只包含整数元素，且集合元素数量不多的时候，Redis就会使用整数集合作为集合键的底层实现</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">intset</span>&#123;</span></span><br><span class="line">     <span class="comment">//编码方式</span></span><br><span class="line">     <span class="keyword">uint32_t</span> encoding;</span><br><span class="line">     <span class="comment">//集合包含的元素数量</span></span><br><span class="line">     <span class="keyword">uint32_t</span> length;</span><br><span class="line">     <span class="comment">//保存元素的数组</span></span><br><span class="line">     <span class="keyword">int8_t</span> contents[];</span><br><span class="line"> </span><br><span class="line">&#125;intset;</span><br></pre></td></tr></table></figure>
+
+<p>整数集合的每个元素都是 contents 数组的一个数据项，它们按照从小到大的顺序排列，并且不包含任何重复项，注意contents 数组声明为 int8_t 类型，但是实际上contents 数组并不保存任何 int8_t 类型的值，其真正类型有 encoding 来决定</p>
+<p>当新增的元素类型比原集合的元素类型大时，要对整数集合进行升级</p>
+<p>注意整数集合只能升级，不能降级</p>
+<h2 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h2><p>使用<strong>拉链法</strong>解决哈希冲突，类似java1.7之前包括1.7的HashMap</p>
+<p>拉链法缺点：随着链表长度的增加，在查询这个位置时耗时会增加，由O(1)逐渐退化为O(n)</p>
+<p>如果数据量大的话，为了避免哈希表退化，更好的方法是扩容再哈希rehash</p>
+<p>rehash触发条件：与<strong>负载因子load factor</strong>有关</p>
+<p><strong>rehash（渐进式）</strong>工作原理：</p>
+<ul>
+<li>在哈希表中维持一个索引计数器变量rehashidx，并将其设置为0，表示rehash开始，给 哈希表2 分配空间，一般比 哈希表1 大两倍</li>
+<li>在rehash期间，对哈希表1 进行crud时，除了指定命令外；还会将 哈希表1 上的值 rehash 到 哈希表2，操作完成后rehashidx+1</li>
+<li>对哈希表1 的所有键对值完成rehash后，将rehashidx设置为-1，表示rehash完成</li>
+<li>渐进式rehash过程中，所有更新，删除，查找都会在两个哈希表执行；而新增则只会在 哈希表2 中新增</li>
+</ul>
+<h2 id="双向链表（比较经典）"><a href="#双向链表（比较经典）" class="headerlink" title="双向链表（比较经典）"></a>双向链表（比较经典）</h2><h2 id="Redis常见五种数据结构"><a href="#Redis常见五种数据结构" class="headerlink" title="Redis常见五种数据结构"></a>Redis常见五种数据结构</h2><table>
+<thead>
+<tr>
+<th>常见数据结构</th>
+<th>底层结构</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字符串 String</td>
+<td>SDS</td>
+</tr>
+<tr>
+<td>列表  List</td>
+<td>压缩列表 or 双向链表</td>
+</tr>
+<tr>
+<td>哈希对象 Hash</td>
+<td>压缩列表 or 字典</td>
+</tr>
+<tr>
+<td>集合 Set</td>
+<td>整数集合 or 字典</td>
+</tr>
+<tr>
+<td>有序集合 Sorted Set</td>
+<td>压缩列表 or zset（由跳表和字典组成）</td>
+</tr>
+</tbody></table>
+
       
       <blockquote>
         
