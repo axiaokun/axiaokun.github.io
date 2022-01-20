@@ -12,16 +12,16 @@
 
   <link rel="shortcut icon" href="/images/favicon.png">
   <link rel="alternate" href="/atom.xml" title="把博客做成字典" type="application/atom+xml">
-  <meta name="description" content="网络安全CSRF攻击什么是CSRF攻击？ 解决方法这里就说说常用的使用token的方法，前后端分离使用 Token 登录解决方案：  首次登录时，后端服务器判断用户账号密码正确之后，根据用户id、用户名、定义好的秘钥、过期时间生成 token ，返回给前端 前端拿到后端返回的 token ,存储在 localStorage里 前端每次路由跳转，判断 localStorage 有无 token ，没">
+  <meta name="description" content="网络安全CSRF攻击什么是CSRF攻击？CSRF，跨站请求伪造（英文全称是Cross-site request forgery），是一种挟制用户在当前已登录的Web应用程序上执行非本意的操作的攻击方法。  解决方法这里就说说常用的使用token的方法，前后端分离使用 Token 登录解决方案：  首次登录时，后端服务器判断用户账号密码正确之后，根据用户id、用户名、定义好的秘钥、过期时间生成 to">
 <meta property="og:type" content="article">
 <meta property="og:title" content="网络安全">
 <meta property="og:url" content="https://axiaokun.github.io/2022/01/18/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index.html">
 <meta property="og:site_name" content="把博客做成字典">
-<meta property="og:description" content="网络安全CSRF攻击什么是CSRF攻击？ 解决方法这里就说说常用的使用token的方法，前后端分离使用 Token 登录解决方案：  首次登录时，后端服务器判断用户账号密码正确之后，根据用户id、用户名、定义好的秘钥、过期时间生成 token ，返回给前端 前端拿到后端返回的 token ,存储在 localStorage里 前端每次路由跳转，判断 localStorage 有无 token ，没">
+<meta property="og:description" content="网络安全CSRF攻击什么是CSRF攻击？CSRF，跨站请求伪造（英文全称是Cross-site request forgery），是一种挟制用户在当前已登录的Web应用程序上执行非本意的操作的攻击方法。  解决方法这里就说说常用的使用token的方法，前后端分离使用 Token 登录解决方案：  首次登录时，后端服务器判断用户账号密码正确之后，根据用户id、用户名、定义好的秘钥、过期时间生成 to">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://github.com/axiaokun/image/blob/main/blog/images/csrf%E6%94%BB%E5%87%BB.png?raw=true">
 <meta property="article:published_time" content="2022-01-18T13:14:25.000Z">
-<meta property="article:modified_time" content="2022-01-18T14:54:45.387Z">
+<meta property="article:modified_time" content="2022-01-20T09:55:41.341Z">
 <meta property="article:author" content="zkz">
 <meta property="article:tag" content="网络安全">
 <meta name="twitter:card" content="summary">
@@ -174,7 +174,7 @@
   <style>#main article .mdui-card-content .center-block{display:block!important;margin-right:auto!important;margin-left:auto!important}</style>
   <article class="mdui-card mdui-m-b-5">
     <header class="mdui-card-media">
-      <img src="/images/random/material-2.png" style="max-height: 240px;">
+      <img src="/images/random/material-17.png" style="max-height: 240px;">
       <div class="mdui-card-media-covered">
         <div class="mdui-card-primary">
           <div class="mdui-card-primary-title">网络安全</div>
@@ -224,7 +224,8 @@
       </div>
     </header>
     <div class="mdui-card-content mdui-typo">
-      <h1 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h1><h2 id="CSRF攻击"><a href="#CSRF攻击" class="headerlink" title="CSRF攻击"></a>CSRF攻击</h2><h3 id="什么是CSRF攻击？"><a href="#什么是CSRF攻击？" class="headerlink" title="什么是CSRF攻击？"></a>什么是CSRF攻击？</h3><p><img src="https://github.com/axiaokun/image/blob/main/blog/images/csrf%E6%94%BB%E5%87%BB.png?raw=true" alt="image"></p>
+      <h1 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h1><h2 id="CSRF攻击"><a href="#CSRF攻击" class="headerlink" title="CSRF攻击"></a>CSRF攻击</h2><h3 id="什么是CSRF攻击？"><a href="#什么是CSRF攻击？" class="headerlink" title="什么是CSRF攻击？"></a>什么是CSRF攻击？</h3><p>CSRF，跨站请求伪造（英文全称是Cross-site request forgery），是一种挟制用户在当前已登录的Web应用程序上执行非本意的操作的攻击方法。</p>
+<p><img src="https://github.com/axiaokun/image/blob/main/blog/images/csrf%E6%94%BB%E5%87%BB.png?raw=true" alt="image"></p>
 <h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>这里就说说常用的使用token的方法，前后端分离使用 Token 登录解决方案：</p>
 <ul>
 <li>首次登录时，后端服务器判断用户账号密码正确之后，根据用户id、用户名、定义好的秘钥、过期时间生成 token ，返回给前端</li>
@@ -248,6 +249,23 @@
 </ul>
 <p>设置同源策略的目的是为了保证用户信息安全，避免信息泄露，但csrf攻击却巧妙的运用了浏览器自动携带Cookie的特点，无须跨域获取用户在网站A的个人信息就可以做到伪造登录。</p>
 <p>但是如果我们改成使用token验证身份（多数情况下要求放在请求头中），是需要前端去获取token，然后放到请求头中，但是由于同源策略的限制，攻击网站B无法获取到用户在网站A的token，所以即使发送了伪造请求也是会被服务端这边拦截下来</p>
+<h2 id="XSS攻击"><a href="#XSS攻击" class="headerlink" title="XSS攻击"></a>XSS攻击</h2><p>XSS，跨站脚本攻击，恶意攻击者往Web页面里<strong>插入恶意html代码</strong>，当用户浏览该页之时，嵌入其中Web里面的html代码会被执行，从而达到恶意攻击用户的特殊目的，一般分为：存储型 、反射型 、DOM型XSS</p>
+<p>例子：获取Cookie</p>
+<p>危险链接植入js代码，其中含有隐藏表单，处理正常完成请求回调函数中将Cookie发送给黑客</p>
+<h3 id="如何防范"><a href="#如何防范" class="headerlink" title="如何防范"></a>如何防范</h3><ul>
+<li>HTML转义</li>
+<li>检验跳转链接内容</li>
+</ul>
+<h2 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h2><p>SQL注入攻击，就是攻击者把SQL命令插入到Web表单的输入域或页面请求的查询字符串，欺骗服务器执行恶意SQL命令。</p>
+<h3 id="如何防范SQL注入"><a href="#如何防范SQL注入" class="headerlink" title="如何防范SQL注入"></a>如何防范SQL注入</h3><p>以Mybatis和JDBC为例子：</p>
+<ul>
+<li>在JDBC中，使用Statement拼字符串非常容易引发SQL注入的问题，如果改为PreparedStatement就可以很大程度避免SQL注入问题，因为<code>PreparedStatement</code>始终使用<code>?</code>作为占位符，并且把数据连同SQL本身传给数据库，这样可以保证每次传给数据库的SQL语句是相同的，只是占位符的数据不同</li>
+<li>在MyBatis中,使用<code>#&#123;&#125;</code>而不是<code>$&#123;&#125;</code>，可以很大程度防止sql注入<ul>
+<li>因为<code>#&#123;&#125;</code>是一个参数占位符，对于字符串类型，会自动加上””，其他类型不加。由于Mybatis采用<strong>预编译</strong>，其后的参数不会再进行SQL编译，所以一定程度上防止SQL注入</li>
+<li><code>$&#123;&#125;</code>是一个简单的字符串替换，字符串是什么，就会解析成什么，存在SQL注入风险</li>
+</ul>
+</li>
+</ul>
 
       
       <blockquote>
