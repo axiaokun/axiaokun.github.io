@@ -8,25 +8,33 @@
   <meta name="renderer" content="webkit">
 
   
-  <title>Category: java基础 | 把博客做成字典</title>
+  <title>TCP半连接队列与SYN攻击 | 把博客做成字典</title>
 
   <link rel="shortcut icon" href="/images/favicon.png">
   <link rel="alternate" href="/atom.xml" title="把博客做成字典" type="application/atom+xml">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="把博客做成字典">
-<meta property="og:url" content="https://axiaokun.github.io/categories/java%E5%9F%BA%E7%A1%80/index.html">
+  <meta name="description" content="TCP半连接队列与SYN攻击TCP半连接队列与全连接队列回顾TCP连接建立   TCP进入三次握手前，服务端会从CLOSE状态变为LISTEN状态，同时在内部创建了两个队列：半连接队列（SYN队列）和全连接队列（ACCEPT队列） 进入三次握手阶段，客户端发送SYN报文给服务端，客户端状态由CLOSE转为SYN_SENT；服务端收到SYN后，回复SYN+ACK报文，服务端状态由LISTEN转为SY">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCP半连接队列与SYN攻击">
+<meta property="og:url" content="https://axiaokun.github.io/2022/01/22/TCP%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E4%B8%8ESYN%E6%94%BB%E5%87%BB/index.html">
 <meta property="og:site_name" content="把博客做成字典">
+<meta property="og:description" content="TCP半连接队列与SYN攻击TCP半连接队列与全连接队列回顾TCP连接建立   TCP进入三次握手前，服务端会从CLOSE状态变为LISTEN状态，同时在内部创建了两个队列：半连接队列（SYN队列）和全连接队列（ACCEPT队列） 进入三次握手阶段，客户端发送SYN报文给服务端，客户端状态由CLOSE转为SYN_SENT；服务端收到SYN后，回复SYN+ACK报文，服务端状态由LISTEN转为SY">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github.com/axiaokun/image/blob/main/blog/images/TCP%E8%BF%9E%E6%8E%A5%E5%BB%BA%E7%AB%8B.png?raw=true">
+<meta property="og:image" content="https://github.com/axiaokun/image/blob/main/blog/images/SYN%E9%98%9F%E5%88%97%E5%92%8CACCEPT%E9%98%9F%E5%88%97.png?raw=true">
+<meta property="article:published_time" content="2022-01-22T06:46:42.000Z">
+<meta property="article:modified_time" content="2022-01-22T07:15:11.112Z">
 <meta property="article:author" content="zkz">
+<meta property="article:tag" content="TCP">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/axiaokun/image/blob/main/blog/images/TCP%E8%BF%9E%E6%8E%A5%E5%BB%BA%E7%AB%8B.png?raw=true">
 
-  <meta name="keywords" content="">
+  <meta name="keywords" content=",TCP">
   <meta name="format-detection" content="telephone=no,email=no">
   <meta name="theme-color" content="#9C27B0">
 
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="application-name" content="把博客做成字典">
-  <meta name="msapplication-starturl" content="https://axiaokun.github.io/categories/java%E5%9F%BA%E7%A1%80/">
+  <meta name="msapplication-starturl" content="https://axiaokun.github.io/2022/01/22/TCP%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E4%B8%8ESYN%E6%94%BB%E5%87%BB/">
   <meta name="msapplication-navbutton-color" content="#9C27B0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="把博客做成字典">
@@ -34,7 +42,7 @@
   <link rel="apple-touch-icon" href="/images/favicon.png">
 
   
-    <link rel="canonical" href="https://axiaokun.github.io/categories/java%E5%9F%BA%E7%A1%80/index.html">
+    <link rel="canonical" href="https://axiaokun.github.io/2022/01/22/TCP%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E4%B8%8ESYN%E6%94%BB%E5%87%BB/">
   
 
   
@@ -161,231 +169,113 @@
   </div>
 </aside>
   <main id="main" class="mdui-m-t-5 fadeIn animated">
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css">
 
-
-  <div class="mdui-chip mdui-m-b-3">
-    <span class="mdui-chip-icon mdui-color-theme-accent"><i class="mdui-icon material-icons">place</i></span>
-    <span class="mdui-chip-title">Category：java基础</span>
-  </div>
-
-
-
-  <article class="mdui-card mdui-m-b-5 mdui-hoverable">
-    <a href="/2021/12/23/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/">
-      <header class="mdui-card-media mdui-ripple">
-        <img src="/images/random/material-3.png" style="max-height: 240px;">
-        <div class="mdui-card-media-covered">
-          <div class="mdui-card-primary">
-            <div class="mdui-card-primary-title">多线程基础</div>
-            <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2021-12-23 / <i class="iconfont">&#xe601;</i> zkz</div>
-          </div>
+  <style>#main article .mdui-card-content .center-block{display:block!important;margin-right:auto!important;margin-left:auto!important}</style>
+  <article class="mdui-card mdui-m-b-5">
+    <header class="mdui-card-media">
+      <img src="/images/random/material-5.png" style="max-height: 240px;">
+      <div class="mdui-card-media-covered">
+        <div class="mdui-card-primary">
+          <div class="mdui-card-primary-title">TCP半连接队列与SYN攻击</div>
+          <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2022-01-22 / <i class="iconfont">&#xe601;</i> zkz</div>
         </div>
+      </div>
+      <div class="mdui-card-menu">
         
-      </header>
-    </a>
+          <button class="mdui-btn mdui-btn-icon mdui-text-color-white" mdui-menu="{target: '#qrcode', align: 'right'}"><i class="mdui-icon material-icons">devices</i></button>
+          <ul class="mdui-menu" id="qrcode">
+            
+              <li class="mdui-menu-item"><a class="mdui-text-center mdui-ripple">发送到手机</a></li>
+            
+            <li class="mdui-menu-item" disabled>
+              
+                <img src="https://chart.googleapis.com/chart?cht=qr&chs=246x246&chl=https://axiaokun.github.io/2022/01/22/TCP%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E4%B8%8ESYN%E6%94%BB%E5%87%BB/&chld=M|2">
+              
+            </li>
+          </ul>
+        
+        
+          <button class="mdui-btn mdui-btn-icon mdui-text-color-white" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="mdui-icon material-icons">share</i></button>
+          <ul class="mdui-menu" id="share_menu">
+            <li class="mdui-menu-item">
+              <a href="http://service.weibo.com/share/share.php?appkey=&title=TCP半连接队列与SYN攻击&url=https://axiaokun.github.io/2022/01/22/TCP%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E4%B8%8ESYN%E6%94%BB%E5%87%BB/&pic=https://axiaokun.github.io/images/favicon.png&searchPic=false&style=simple" target="_blank" class="mdui-ripple">Share to Weibo</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://twitter.com/intent/tweet?text=TCP半连接队列与SYN攻击&url=https://axiaokun.github.io/2022/01/22/TCP%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E4%B8%8ESYN%E6%94%BB%E5%87%BB/&via=zkz" target="_blank" class="mdui-ripple">Share to Twitter</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://www.facebook.com/sharer/sharer.php?u=https://axiaokun.github.io/2022/01/22/TCP%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E4%B8%8ESYN%E6%94%BB%E5%87%BB/" target="_blank" class="mdui-ripple">Share to Facebook</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://plus.google.com/share?url=https://axiaokun.github.io/2022/01/22/TCP%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E4%B8%8ESYN%E6%94%BB%E5%87%BB/" target="_blank" class="mdui-ripple">Share to Google+</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://axiaokun.github.io/2022/01/22/TCP%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E4%B8%8ESYN%E6%94%BB%E5%87%BB/&title=TCP半连接队列与SYN攻击" target="_blank" class="mdui-ripple">Share to LinkedIn</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="http://connect.qq.com/widget/shareqq/index.html?site=把博客做成字典&title=TCP半连接队列与SYN攻击&pics=https://axiaokun.github.io/images/favicon.png&url=https://axiaokun.github.io/2022/01/22/TCP%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E4%B8%8ESYN%E6%94%BB%E5%87%BB/" target="_blank" class="mdui-ripple">Share to QQ</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://telegram.me/share/url?url=https://axiaokun.github.io/2022/01/22/TCP%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E4%B8%8ESYN%E6%94%BB%E5%87%BB/&text=TCP半连接队列与SYN攻击" target="_blank" class="mdui-ripple">Share to Telegram</a>
+            </li>
+          </ul>
+        
+      </div>
+    </header>
     <div class="mdui-card-content mdui-typo">
+      <h1 id="TCP半连接队列与SYN攻击"><a href="#TCP半连接队列与SYN攻击" class="headerlink" title="TCP半连接队列与SYN攻击"></a>TCP半连接队列与SYN攻击</h1><h2 id="TCP半连接队列与全连接队列"><a href="#TCP半连接队列与全连接队列" class="headerlink" title="TCP半连接队列与全连接队列"></a>TCP半连接队列与全连接队列</h2><p>回顾TCP连接建立</p>
+<p><img src="https://github.com/axiaokun/image/blob/main/blog/images/TCP%E8%BF%9E%E6%8E%A5%E5%BB%BA%E7%AB%8B.png?raw=true"></p>
+<ul>
+<li>TCP进入三次握手前，服务端会从CLOSE状态变为LISTEN状态，同时在内部创建了两个队列：半连接队列（SYN队列）和全连接队列（ACCEPT队列）</li>
+<li>进入三次握手阶段，客户端发送SYN报文给服务端，客户端状态由CLOSE转为SYN_SENT；服务端收到SYN后，回复SYN+ACK报文，服务端状态由LISTEN转为SYN_RCVD，<strong>同时将该连接推入SYN队列</strong>，即半连接队列</li>
+<li>客户端接受到SYN+ACK报文后，回复ACK报文，状态由SYN_SENT转为ESTABLISHED，客户端握手结束；服务端收到客户端回复的ACK后，状态由SYN_RCVD转为ESTABLISHED，服务端握手结束，此时TCP三次握手结束，同时连接会被具体等待的上层应用取走，<strong>在取走之前，连接会由SYN队列转入ACCEPT队列</strong>，即全连接队列</li>
+</ul>
+<p><img src="https://github.com/axiaokun/image/blob/main/blog/images/SYN%E9%98%9F%E5%88%97%E5%92%8CACCEPT%E9%98%9F%E5%88%97.png?raw=true"></p>
+<h2 id="SYN攻击"><a href="#SYN攻击" class="headerlink" title="SYN攻击"></a>SYN攻击</h2><blockquote>
+<p>SYN Flood是一种典型的DDos攻击，它在短时间内，伪造<strong>不存在的IP地址</strong>,向服务器大量发起SYN报文。当服务器回复SYN+ACK报文后，不会收到ACK回应报文，导致服务器上建立大量的半连接半连接队列满了，这就无法处理正常的TCP请求</p>
+</blockquote>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><ul>
+<li><strong>syn cookie</strong>：在收到SYN包后，服务器根据一定的方法，以数据包的源地址、端口等信息为参数计算出一个cookie值作为自己的SYNACK包的序列号，回复SYN+ACK后，服务器并不立即分配资源进行处理，等收到发送方的ACK包后，重新根据数据包的源地址、端口计算该包中的确认序列号是否正确，如果正确则建立连接，否则丢弃该包。</li>
+<li><strong>SYN Proxy防火墙</strong>：服务器防火墙会对收到的每一个SYN报文进行代理和回应，并保持半连接。等发送方将ACK包返回后，再重新构造SYN包发到服务器，建立真正的TCP连接。</li>
+</ul>
+
       
-        多线程基础……
-      
-    </div>
-    <div class="mdui-text-center">
-      <a href="/2021/12/23/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/" class="mdui-btn mdui-btn-raised mdui-btn-dense mdui-color-theme-accent mdui-ripple">Read More</a>
+      <blockquote>
+        
+        <strong>PermaLink: </strong><br><a href="https://axiaokun.github.io/2022/01/22/TCP%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E4%B8%8ESYN%E6%94%BB%E5%87%BB/">https://axiaokun.github.io/2022/01/22/TCP半连接队列与SYN攻击/</a>
+      </blockquote>
     </div>
     <footer class="mdui-card-actions">
       
-        <a class="mdui-ripple article_categories-link" href="/categories/java%E5%9F%BA%E7%A1%80/">java基础</a>
+        <a class="mdui-ripple article_categories-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
       
       
-        <a class="mdui-ripple article_tags-link" href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag">并发</a>
+        <a class="mdui-ripple article_tags-link" href="/tags/TCP/" rel="tag">TCP</a>
       
     </footer>
+    
   </article>
+  
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 
-  <article class="mdui-card mdui-m-b-5 mdui-hoverable">
-    <a href="/2021/12/22/sleep-%E5%92%8Cwait/">
-      <header class="mdui-card-media mdui-ripple">
-        <img src="/images/random/material-7.png" style="max-height: 240px;">
-        <div class="mdui-card-media-covered">
-          <div class="mdui-card-primary">
-            <div class="mdui-card-primary-title">sleep()和wait()</div>
-            <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2021-12-22 / <i class="iconfont">&#xe601;</i> zkz</div>
-          </div>
-        </div>
-        
-      </header>
-    </a>
-    <div class="mdui-card-content mdui-typo">
-      
-        ……
-      
-    </div>
-    <div class="mdui-text-center">
-      <a href="/2021/12/22/sleep-%E5%92%8Cwait/" class="mdui-btn mdui-btn-raised mdui-btn-dense mdui-color-theme-accent mdui-ripple">Read More</a>
-    </div>
-    <footer class="mdui-card-actions">
-      
-        <a class="mdui-ripple article_categories-link" href="/categories/java%E5%9F%BA%E7%A1%80/">java基础</a>
-      
-      
-        <a class="mdui-ripple article_tags-link" href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag">并发</a>
-      
-    </footer>
-  </article>
+  <script>$("#main article .mdui-card-content img.fancybox").on("click",function(e){$.fancybox.open({src:$(this).attr("src")});});</script>
 
-  <article class="mdui-card mdui-m-b-5 mdui-hoverable">
-    <a href="/2021/12/18/%E7%BA%BF%E7%A8%8B%E6%B1%A0/">
-      <header class="mdui-card-media mdui-ripple">
-        <img src="/images/random/material-18.png" style="max-height: 240px;">
-        <div class="mdui-card-media-covered">
-          <div class="mdui-card-primary">
-            <div class="mdui-card-primary-title">线程池</div>
-            <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2021-12-18 / <i class="iconfont">&#xe601;</i> zkz</div>
-          </div>
-        </div>
-        
-      </header>
-    </a>
-    <div class="mdui-card-content mdui-typo">
-      
-        线程池……
-      
-    </div>
-    <div class="mdui-text-center">
-      <a href="/2021/12/18/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" class="mdui-btn mdui-btn-raised mdui-btn-dense mdui-color-theme-accent mdui-ripple">Read More</a>
-    </div>
-    <footer class="mdui-card-actions">
-      
-        <a class="mdui-ripple article_categories-link" href="/categories/java%E5%9F%BA%E7%A1%80/">java基础</a>
-      
-      
-        <a class="mdui-ripple article_tags-link" href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="tag">线程池</a>
-      
-    </footer>
-  </article>
 
-  <article class="mdui-card mdui-m-b-5 mdui-hoverable">
-    <a href="/2021/12/18/HashMap%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/">
-      <header class="mdui-card-media mdui-ripple">
-        <img src="/images/random/material-1.png" style="max-height: 240px;">
-        <div class="mdui-card-media-covered">
-          <div class="mdui-card-primary">
-            <div class="mdui-card-primary-title">HashMap线程安全</div>
-            <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2021-12-18 / <i class="iconfont">&#xe601;</i> zkz</div>
-          </div>
-        </div>
-        
-      </header>
-    </a>
-    <div class="mdui-card-content mdui-typo">
-      
-        ……
-      
-    </div>
-    <div class="mdui-text-center">
-      <a href="/2021/12/18/HashMap%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="mdui-btn mdui-btn-raised mdui-btn-dense mdui-color-theme-accent mdui-ripple">Read More</a>
-    </div>
-    <footer class="mdui-card-actions">
-      
-        <a class="mdui-ripple article_categories-link" href="/categories/java%E5%9F%BA%E7%A1%80/">java基础</a>
-      
-      
-        <a class="mdui-ripple article_tags-link" href="/tags/HashMap/" rel="tag">HashMap</a><a class="mdui-ripple article_tags-link" href="/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a>
-      
-    </footer>
-  </article>
+  <nav id="paginator">
+    
+    <div class="spacer"></div>
+    
+      <a rel="next" class="extend next" href="/2022/01/22/TCP%E7%B2%98%E5%8C%85%E5%92%8C%E6%8B%86%E5%8C%85/">
+        <span class="mdui-p-x-3" mdui-tooltip="{content: 'TCP粘包和拆包'}">Next</span>
+        <button aria-label="next" class="mdui-btn mdui-btn-raised mdui-btn-icon mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">arrow_forward</i></button>
+      </a>
+    
+  </nav>
 
-  <article class="mdui-card mdui-m-b-5 mdui-hoverable">
-    <a href="/2021/12/17/java%E6%96%87%E4%BB%B6%E6%98%AF%E6%80%8E%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84/">
-      <header class="mdui-card-media mdui-ripple">
-        <img src="/images/random/material-8.png" style="max-height: 240px;">
-        <div class="mdui-card-media-covered">
-          <div class="mdui-card-primary">
-            <div class="mdui-card-primary-title">java文件是怎么运行的</div>
-            <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2021-12-17 / <i class="iconfont">&#xe601;</i> zkz</div>
-          </div>
-        </div>
-        
-      </header>
-    </a>
-    <div class="mdui-card-content mdui-typo">
-      
-        ……
-      
-    </div>
-    <div class="mdui-text-center">
-      <a href="/2021/12/17/java%E6%96%87%E4%BB%B6%E6%98%AF%E6%80%8E%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84/" class="mdui-btn mdui-btn-raised mdui-btn-dense mdui-color-theme-accent mdui-ripple">Read More</a>
-    </div>
-    <footer class="mdui-card-actions">
-      
-        <a class="mdui-ripple article_categories-link" href="/categories/java%E5%9F%BA%E7%A1%80/">java基础</a>
-      
-      
-        <a class="mdui-ripple article_tags-link" href="/tags/jvm/" rel="tag">jvm</a><a class="mdui-ripple article_tags-link" href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD/" rel="tag">类加载</a>
-      
-    </footer>
-  </article>
 
-  <article class="mdui-card mdui-m-b-5 mdui-hoverable">
-    <a href="/2021/12/13/ThreadLocal%E5%8E%9F%E7%90%86/">
-      <header class="mdui-card-media mdui-ripple">
-        <img src="/images/random/material-18.png" style="max-height: 240px;">
-        <div class="mdui-card-media-covered">
-          <div class="mdui-card-primary">
-            <div class="mdui-card-primary-title">ThreadLocal原理</div>
-            <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2021-12-13 / <i class="iconfont">&#xe601;</i> zkz</div>
-          </div>
-        </div>
-        
-      </header>
-    </a>
-    <div class="mdui-card-content mdui-typo">
-      
-        ……
-      
-    </div>
-    <div class="mdui-text-center">
-      <a href="/2021/12/13/ThreadLocal%E5%8E%9F%E7%90%86/" class="mdui-btn mdui-btn-raised mdui-btn-dense mdui-color-theme-accent mdui-ripple">Read More</a>
-    </div>
-    <footer class="mdui-card-actions">
-      
-        <a class="mdui-ripple article_categories-link" href="/categories/java%E5%9F%BA%E7%A1%80/">java基础</a>
-      
-      
-        <a class="mdui-ripple article_tags-link" href="/tags/ThreadLocal/" rel="tag">ThreadLocal</a>
-      
-    </footer>
-  </article>
-
-  <article class="mdui-card mdui-m-b-5 mdui-hoverable">
-    <a href="/2021/12/10/%E6%9E%84%E9%80%A0%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/">
-      <header class="mdui-card-media mdui-ripple">
-        <img src="/images/random/material-6.png" style="max-height: 240px;">
-        <div class="mdui-card-media-covered">
-          <div class="mdui-card-primary">
-            <div class="mdui-card-primary-title">构造执行顺序</div>
-            <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2021-12-10 / <i class="iconfont">&#xe601;</i> zkz</div>
-          </div>
-        </div>
-        
-      </header>
-    </a>
-    <div class="mdui-card-content mdui-typo">
-      
-        ……
-      
-    </div>
-    <div class="mdui-text-center">
-      <a href="/2021/12/10/%E6%9E%84%E9%80%A0%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/" class="mdui-btn mdui-btn-raised mdui-btn-dense mdui-color-theme-accent mdui-ripple">Read More</a>
-    </div>
-    <footer class="mdui-card-actions">
-      
-        <a class="mdui-ripple article_categories-link" href="/categories/java%E5%9F%BA%E7%A1%80/">java基础</a>
-      
-      
-        <a class="mdui-ripple article_tags-link" href="/tags/java%E5%9F%BA%E7%A1%80/" rel="tag">java基础</a>
-      
-    </footer>
-  </article>
 
 </main>
   <footer id="footer" class="mdui-m-t-5 mdui-p-y-3 mdui-color-theme">
