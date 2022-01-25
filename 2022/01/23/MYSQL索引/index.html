@@ -8,25 +8,30 @@
   <meta name="renderer" content="webkit">
 
   
-  <title>Tag: 递归 | 把博客做成字典</title>
+  <title>MYSQL索引 | 把博客做成字典</title>
 
   <link rel="shortcut icon" href="/images/favicon.png">
   <link rel="alternate" href="/atom.xml" title="把博客做成字典" type="application/atom+xml">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="把博客做成字典">
-<meta property="og:url" content="https://axiaokun.github.io/tags/%E9%80%92%E5%BD%92/index.html">
+  <meta name="description" content="MYSQL索引如何判断一条SQL走索引？ 使用解释函数explain，添加在执行sql语句前面 观察几个重要字段： type（访问类型）：ALL、index、range、 ref、eq_ref、const、system、NULL（从左到右，性能从差到好） key：MySQL实际使用到的索引 rows：MySQL查询优化器根据优化信息，估算SQL要查到结果需要扫描读取的行数，这个值可以直观显示SQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MYSQL索引">
+<meta property="og:url" content="https://axiaokun.github.io/2022/01/23/MYSQL%E7%B4%A2%E5%BC%95/index.html">
 <meta property="og:site_name" content="把博客做成字典">
+<meta property="og:description" content="MYSQL索引如何判断一条SQL走索引？ 使用解释函数explain，添加在执行sql语句前面 观察几个重要字段： type（访问类型）：ALL、index、range、 ref、eq_ref、const、system、NULL（从左到右，性能从差到好） key：MySQL实际使用到的索引 rows：MySQL查询优化器根据优化信息，估算SQL要查到结果需要扫描读取的行数，这个值可以直观显示SQL">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-01-23T12:47:38.000Z">
+<meta property="article:modified_time" content="2022-01-25T03:38:00.156Z">
 <meta property="article:author" content="zkz">
+<meta property="article:tag" content="索引">
 <meta name="twitter:card" content="summary">
 
-  <meta name="keywords" content="">
+  <meta name="keywords" content=",索引">
   <meta name="format-detection" content="telephone=no,email=no">
   <meta name="theme-color" content="#9C27B0">
 
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="application-name" content="把博客做成字典">
-  <meta name="msapplication-starturl" content="https://axiaokun.github.io/tags/%E9%80%92%E5%BD%92/">
+  <meta name="msapplication-starturl" content="https://axiaokun.github.io/2022/01/23/MYSQL%E7%B4%A2%E5%BC%95/">
   <meta name="msapplication-navbutton-color" content="#9C27B0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="把博客做成字典">
@@ -34,7 +39,7 @@
   <link rel="apple-touch-icon" href="/images/favicon.png">
 
   
-    <link rel="canonical" href="https://axiaokun.github.io/tags/%E9%80%92%E5%BD%92/index.html">
+    <link rel="canonical" href="https://axiaokun.github.io/2022/01/23/MYSQL%E7%B4%A2%E5%BC%95/">
   
 
   
@@ -161,45 +166,142 @@
   </div>
 </aside>
   <main id="main" class="mdui-m-t-5 fadeIn animated">
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css">
 
-
-
-  <div class="mdui-chip mdui-m-b-3">
-    <span class="mdui-chip-icon mdui-color-theme-accent"><i class="mdui-icon material-icons">place</i></span>
-    <span class="mdui-chip-title">Tag：递归</span>
-  </div>
-
-
-  <article class="mdui-card mdui-m-b-5 mdui-hoverable">
-    <a href="/2021/12/12/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/">
-      <header class="mdui-card-media mdui-ripple">
-        <img src="/images/random/material-9.png" style="max-height: 240px;">
-        <div class="mdui-card-media-covered">
-          <div class="mdui-card-primary">
-            <div class="mdui-card-primary-title">反转链表</div>
-            <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2021-12-12 / <i class="iconfont">&#xe601;</i> zkz</div>
-          </div>
+  <style>#main article .mdui-card-content .center-block{display:block!important;margin-right:auto!important;margin-left:auto!important}</style>
+  <article class="mdui-card mdui-m-b-5">
+    <header class="mdui-card-media">
+      <img src="/images/random/material-9.png" style="max-height: 240px;">
+      <div class="mdui-card-media-covered">
+        <div class="mdui-card-primary">
+          <div class="mdui-card-primary-title">MYSQL索引</div>
+          <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2022-01-23 / <i class="iconfont">&#xe601;</i> zkz</div>
         </div>
+      </div>
+      <div class="mdui-card-menu">
         
-      </header>
-    </a>
+          <button class="mdui-btn mdui-btn-icon mdui-text-color-white" mdui-menu="{target: '#qrcode', align: 'right'}"><i class="mdui-icon material-icons">devices</i></button>
+          <ul class="mdui-menu" id="qrcode">
+            
+              <li class="mdui-menu-item"><a class="mdui-text-center mdui-ripple">发送到手机</a></li>
+            
+            <li class="mdui-menu-item" disabled>
+              
+                <img src="https://chart.googleapis.com/chart?cht=qr&chs=246x246&chl=https://axiaokun.github.io/2022/01/23/MYSQL%E7%B4%A2%E5%BC%95/&chld=M|2">
+              
+            </li>
+          </ul>
+        
+        
+          <button class="mdui-btn mdui-btn-icon mdui-text-color-white" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="mdui-icon material-icons">share</i></button>
+          <ul class="mdui-menu" id="share_menu">
+            <li class="mdui-menu-item">
+              <a href="http://service.weibo.com/share/share.php?appkey=&title=MYSQL索引&url=https://axiaokun.github.io/2022/01/23/MYSQL%E7%B4%A2%E5%BC%95/&pic=https://axiaokun.github.io/images/favicon.png&searchPic=false&style=simple" target="_blank" class="mdui-ripple">Share to Weibo</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://twitter.com/intent/tweet?text=MYSQL索引&url=https://axiaokun.github.io/2022/01/23/MYSQL%E7%B4%A2%E5%BC%95/&via=zkz" target="_blank" class="mdui-ripple">Share to Twitter</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://www.facebook.com/sharer/sharer.php?u=https://axiaokun.github.io/2022/01/23/MYSQL%E7%B4%A2%E5%BC%95/" target="_blank" class="mdui-ripple">Share to Facebook</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://plus.google.com/share?url=https://axiaokun.github.io/2022/01/23/MYSQL%E7%B4%A2%E5%BC%95/" target="_blank" class="mdui-ripple">Share to Google+</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://axiaokun.github.io/2022/01/23/MYSQL%E7%B4%A2%E5%BC%95/&title=MYSQL索引" target="_blank" class="mdui-ripple">Share to LinkedIn</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="http://connect.qq.com/widget/shareqq/index.html?site=把博客做成字典&title=MYSQL索引&pics=https://axiaokun.github.io/images/favicon.png&url=https://axiaokun.github.io/2022/01/23/MYSQL%E7%B4%A2%E5%BC%95/" target="_blank" class="mdui-ripple">Share to QQ</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://telegram.me/share/url?url=https://axiaokun.github.io/2022/01/23/MYSQL%E7%B4%A2%E5%BC%95/&text=MYSQL索引" target="_blank" class="mdui-ripple">Share to Telegram</a>
+            </li>
+          </ul>
+        
+      </div>
+    </header>
     <div class="mdui-card-content mdui-typo">
+      <h1 id="MYSQL索引"><a href="#MYSQL索引" class="headerlink" title="MYSQL索引"></a>MYSQL索引</h1><h2 id="如何判断一条SQL走索引？"><a href="#如何判断一条SQL走索引？" class="headerlink" title="如何判断一条SQL走索引？"></a>如何判断一条SQL走索引？</h2><ul>
+<li>使用解释函数explain，添加在执行sql语句前面</li>
+<li>观察几个重要字段：<ul>
+<li>type（访问类型）：ALL、index、range、 ref、eq_ref、const、system、NULL（从左到右，性能从差到好）</li>
+<li>key：MySQL实际使用到的索引</li>
+<li>rows：MySQL查询优化器根据优化信息，估算SQL要查到结果需要扫描读取的行数，这个值可以直观显示SQL的效率好坏</li>
+<li>extra（额外信息）：例如使用临时表保存中间结果、使用了覆盖索引、使用临时索引对结果进行排序等</li>
+</ul>
+</li>
+</ul>
+<h2 id="索引底层数据结构"><a href="#索引底层数据结构" class="headerlink" title="索引底层数据结构"></a>索引底层数据结构</h2><p>先说MySQL中<strong>MyISAM 引擎和 InnoDB 引擎都是使用B+树作为索引结构</strong>，但是实现的方式不一样。</p>
+<p>索引是一种用于快速查询和检索数据的数据结构，常见的索引数据结构：B树，B+树，Hash</p>
+<h3 id="B-树和B树的区别"><a href="#B-树和B树的区别" class="headerlink" title="B+树和B树的区别"></a>B+树和B树的区别</h3><ul>
+<li>B树的所有节点既存放键（key）也存放数据（data），而B+树只有叶子节点存放key和data，其他内部节点只存放key</li>
+<li>B树的叶子节点是独立的；B+树的叶子节点有一条引用链指向与它相邻的叶子节点</li>
+</ul>
+<h3 id="为什么不使用Hash？"><a href="#为什么不使用Hash？" class="headerlink" title="为什么不使用Hash？"></a>为什么不使用Hash？</h3><p>对于Hash来说，存在的问题有两点：</p>
+<ul>
+<li>hash冲突，使用<strong>拉链法</strong>解决，数据量多的时候容易导致性能退化，不过这点可以使用rehash来解决</li>
+<li>范围查询效率低下，这点是相较于B+树来说最致命的，B+树由于叶子节点使用了引用链指向它的相邻叶子节点，所以范围查询时不用一个一个来查询，只需要查询范围左边界的节点，然后遍历即可（个人感觉B+树相比B树用得更多也是这个原因）</li>
+</ul>
+<h3 id="为什么不使用红黑树？"><a href="#为什么不使用红黑树？" class="headerlink" title="为什么不使用红黑树？"></a>为什么不使用红黑树？</h3><p>红黑树在数据量大的时候<strong>树深</strong>很大，那么也就意味着要访问多个数据块，多次磁盘IO会严重拖垮性能；而使用B+树的话，能够很有效的降低树的深度，减少磁盘IO</p>
+<h2 id="聚簇索引-非聚簇索引"><a href="#聚簇索引-非聚簇索引" class="headerlink" title="聚簇索引 / 非聚簇索引"></a>聚簇索引 / 非聚簇索引</h2><p>聚簇索引：索引结构和数据一起存放（主键索引，叶子节点存放key和数据）</p>
+<p>非聚簇索引：索引结构和数据分离（二级索引，叶子节点存放key和主键）</p>
+<h2 id="二级索引"><a href="#二级索引" class="headerlink" title="二级索引"></a>二级索引</h2><p>二级索引，又称为辅助索引，叶子节点存储的数据是主键。利用二级索引作为条件查询时，一般是通过二级索引拿到主键key，利用主键<strong>回表</strong>，在主键索引中获取到数据。</p>
+<p>常见二级索引：<strong>唯一索引、前缀索引（只适用字符串类型）、普通索引</strong></p>
+<h3 id="索引覆盖"><a href="#索引覆盖" class="headerlink" title="索引覆盖"></a>索引覆盖</h3><p>只需要在一颗索引树上就可以获取SQL所需的所有数据，无须回表，速度更快</p>
+<p>例子：用户表user中有字段：id、name、age、address，id为主键，name普通索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> name <span class="operator">=</span> &quot;xiaoming&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>这样我们就可以在name索引结构上获得这个sql所需的所有数据了</p>
+<hr>
+<p>explain分析：Extra列结果是 Using index</p>
+<h3 id="索引下推"><a href="#索引下推" class="headerlink" title="索引下推"></a>索引下推</h3><p>使用联合索引时，如果条件正好可以使用联合索引，那么会在联合索引中利用索引条件配合查询得到最后的结果在进行回表，减少回表次数</p>
+<p>例子：当我们创建一个用户表(userinfo),其中有字段：id,name,age,addr。我们将name,age建立联合索引。当我们执行：select * from userinfo where name like “ming%” and age=20;</p>
+<ul>
+<li><p>对于MySQL5.6之前：我们在索引内部首先通过name进行查找，在联合索引name,age树形查询结果可能存在多个，然后再拿着id值去回表查询，整个过程需要回表多次。</p>
+</li>
+<li><p>对于MySQL5.6之后：我们是在索引内部就判断age是否等于20，对于不等于20跳过。因此在联合索引name,age索引树只匹配一个记录，此时拿着这个id去主键索引树种回表查询全部数据，整个过程就回一次表。</p>
+</li>
+</ul>
+<hr>
+<p>explain分析：Extra值为：Using index condition.表示使用索引下推</p>
+<h3 id="索引合并"><a href="#索引合并" class="headerlink" title="索引合并"></a>索引合并</h3><p>条件查询时使用多个条件字段，它们之间使用AND/OR，那么此时可能数据库会优化使用index_merge索引合并技术，即对多个索引进行条件扫描，然后各自的结果进行合并</p>
+
       
-        反转链表……
-      
-    </div>
-    <div class="mdui-text-center">
-      <a href="/2021/12/12/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" class="mdui-btn mdui-btn-raised mdui-btn-dense mdui-color-theme-accent mdui-ripple">Read More</a>
+      <blockquote>
+        
+        <strong>PermaLink: </strong><br><a href="https://axiaokun.github.io/2022/01/23/MYSQL%E7%B4%A2%E5%BC%95/">https://axiaokun.github.io/2022/01/23/MYSQL索引/</a>
+      </blockquote>
     </div>
     <footer class="mdui-card-actions">
       
-        <a class="mdui-ripple article_categories-link" href="/categories/LeetCode/">LeetCode</a>
+        <a class="mdui-ripple article_categories-link" href="/categories/Mysql/">Mysql</a>
       
       
-        <a class="mdui-ripple article_tags-link" href="/tags/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" rel="tag">反转链表</a><a class="mdui-ripple article_tags-link" href="/tags/%E9%80%92%E5%BD%92/" rel="tag">递归</a>
+        <a class="mdui-ripple article_tags-link" href="/tags/%E7%B4%A2%E5%BC%95/" rel="tag">索引</a>
       
     </footer>
+    
   </article>
+  
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+  <script>$("#main article .mdui-card-content img.fancybox").on("click",function(e){$.fancybox.open({src:$(this).attr("src")});});</script>
+
+
+  <nav id="paginator">
+    
+    <div class="spacer"></div>
+    
+      <a rel="next" class="extend next" href="/2022/01/23/%E9%98%BB%E5%A1%9EIO-%E5%90%8C%E6%AD%A5IO-%E5%BC%82%E6%AD%A5IO/">
+        <span class="mdui-p-x-3" mdui-tooltip="{content: '阻塞IO 同步IO 异步IO'}">Next</span>
+        <button aria-label="next" class="mdui-btn mdui-btn-raised mdui-btn-icon mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">arrow_forward</i></button>
+      </a>
+    
+  </nav>
+
+
 
 </main>
   <footer id="footer" class="mdui-m-t-5 mdui-p-y-3 mdui-color-theme">
