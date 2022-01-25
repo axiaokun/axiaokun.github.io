@@ -8,25 +8,32 @@
   <meta name="renderer" content="webkit">
 
   
-  <title>Tag: IO | 把博客做成字典</title>
+  <title>基于非阻塞的IO多路复用 | 把博客做成字典</title>
 
   <link rel="shortcut icon" href="/images/favicon.png">
   <link rel="alternate" href="/atom.xml" title="把博客做成字典" type="application/atom+xml">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="把博客做成字典">
-<meta property="og:url" content="https://axiaokun.github.io/tags/IO/index.html">
+  <meta name="description" content="基于非阻塞的IO多路复用IO多路复用主要解决的是网络IO问题。 在最基础的TCP的Socket编程中，一般我们只能一对一通信，为了服务更多的客户端，我们需要改进网络IO模型 多进程&#x2F;线程模型每当有一个客户端连接时，就分配一个进程或线程，后续的操作都在Socket连接对应的进程或线程；当客户端数量增大时，这种方式带来的线程或进程的调度，上下文切换，内存占用等都会成为一个显著的问题 于是出现了IO多路">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于非阻塞的IO多路复用">
+<meta property="og:url" content="https://axiaokun.github.io/2022/01/23/%E5%9F%BA%E4%BA%8E%E9%9D%9E%E9%98%BB%E5%A1%9E%E7%9A%84IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/index.html">
 <meta property="og:site_name" content="把博客做成字典">
+<meta property="og:description" content="基于非阻塞的IO多路复用IO多路复用主要解决的是网络IO问题。 在最基础的TCP的Socket编程中，一般我们只能一对一通信，为了服务更多的客户端，我们需要改进网络IO模型 多进程&#x2F;线程模型每当有一个客户端连接时，就分配一个进程或线程，后续的操作都在Socket连接对应的进程或线程；当客户端数量增大时，这种方式带来的线程或进程的调度，上下文切换，内存占用等都会成为一个显著的问题 于是出现了IO多路">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github.com/axiaokun/image/blob/main/blog/images/epoll.png?raw=true">
+<meta property="article:published_time" content="2022-01-23T06:02:40.000Z">
+<meta property="article:modified_time" content="2022-01-25T15:22:16.830Z">
 <meta property="article:author" content="zkz">
+<meta property="article:tag" content="IO">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/axiaokun/image/blob/main/blog/images/epoll.png?raw=true">
 
-  <meta name="keywords" content="">
+  <meta name="keywords" content=",IO">
   <meta name="format-detection" content="telephone=no,email=no">
   <meta name="theme-color" content="#9C27B0">
 
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="application-name" content="把博客做成字典">
-  <meta name="msapplication-starturl" content="https://axiaokun.github.io/tags/IO/">
+  <meta name="msapplication-starturl" content="https://axiaokun.github.io/2022/01/23/%E5%9F%BA%E4%BA%8E%E9%9D%9E%E9%98%BB%E5%A1%9E%E7%9A%84IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/">
   <meta name="msapplication-navbutton-color" content="#9C27B0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="把博客做成字典">
@@ -34,7 +41,7 @@
   <link rel="apple-touch-icon" href="/images/favicon.png">
 
   
-    <link rel="canonical" href="https://axiaokun.github.io/tags/IO/index.html">
+    <link rel="canonical" href="https://axiaokun.github.io/2022/01/23/%E5%9F%BA%E4%BA%8E%E9%9D%9E%E9%98%BB%E5%A1%9E%E7%9A%84IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/">
   
 
   
@@ -161,35 +168,99 @@
   </div>
 </aside>
   <main id="main" class="mdui-m-t-5 fadeIn animated">
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css">
 
-
-
-  <div class="mdui-chip mdui-m-b-3">
-    <span class="mdui-chip-icon mdui-color-theme-accent"><i class="mdui-icon material-icons">place</i></span>
-    <span class="mdui-chip-title">Tag：IO</span>
-  </div>
-
-
-  <article class="mdui-card mdui-m-b-5 mdui-hoverable">
-    <a href="/2022/01/23/%E5%9F%BA%E4%BA%8E%E9%9D%9E%E9%98%BB%E5%A1%9E%E7%9A%84IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/">
-      <header class="mdui-card-media mdui-ripple">
-        <img src="/images/random/material-9.png" style="max-height: 240px;">
-        <div class="mdui-card-media-covered">
-          <div class="mdui-card-primary">
-            <div class="mdui-card-primary-title">基于非阻塞的IO多路复用</div>
-            <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2022-01-23 / <i class="iconfont">&#xe601;</i> zkz</div>
-          </div>
+  <style>#main article .mdui-card-content .center-block{display:block!important;margin-right:auto!important;margin-left:auto!important}</style>
+  <article class="mdui-card mdui-m-b-5">
+    <header class="mdui-card-media">
+      <img src="/images/random/material-6.png" style="max-height: 240px;">
+      <div class="mdui-card-media-covered">
+        <div class="mdui-card-primary">
+          <div class="mdui-card-primary-title">基于非阻塞的IO多路复用</div>
+          <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2022-01-23 / <i class="iconfont">&#xe601;</i> zkz</div>
         </div>
+      </div>
+      <div class="mdui-card-menu">
         
-      </header>
-    </a>
+          <button class="mdui-btn mdui-btn-icon mdui-text-color-white" mdui-menu="{target: '#qrcode', align: 'right'}"><i class="mdui-icon material-icons">devices</i></button>
+          <ul class="mdui-menu" id="qrcode">
+            
+              <li class="mdui-menu-item"><a class="mdui-text-center mdui-ripple">发送到手机</a></li>
+            
+            <li class="mdui-menu-item" disabled>
+              
+                <img src="https://chart.googleapis.com/chart?cht=qr&chs=246x246&chl=https://axiaokun.github.io/2022/01/23/%E5%9F%BA%E4%BA%8E%E9%9D%9E%E9%98%BB%E5%A1%9E%E7%9A%84IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/&chld=M|2">
+              
+            </li>
+          </ul>
+        
+        
+          <button class="mdui-btn mdui-btn-icon mdui-text-color-white" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="mdui-icon material-icons">share</i></button>
+          <ul class="mdui-menu" id="share_menu">
+            <li class="mdui-menu-item">
+              <a href="http://service.weibo.com/share/share.php?appkey=&title=基于非阻塞的IO多路复用&url=https://axiaokun.github.io/2022/01/23/%E5%9F%BA%E4%BA%8E%E9%9D%9E%E9%98%BB%E5%A1%9E%E7%9A%84IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/&pic=https://axiaokun.github.io/images/favicon.png&searchPic=false&style=simple" target="_blank" class="mdui-ripple">Share to Weibo</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://twitter.com/intent/tweet?text=基于非阻塞的IO多路复用&url=https://axiaokun.github.io/2022/01/23/%E5%9F%BA%E4%BA%8E%E9%9D%9E%E9%98%BB%E5%A1%9E%E7%9A%84IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/&via=zkz" target="_blank" class="mdui-ripple">Share to Twitter</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://www.facebook.com/sharer/sharer.php?u=https://axiaokun.github.io/2022/01/23/%E5%9F%BA%E4%BA%8E%E9%9D%9E%E9%98%BB%E5%A1%9E%E7%9A%84IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" target="_blank" class="mdui-ripple">Share to Facebook</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://plus.google.com/share?url=https://axiaokun.github.io/2022/01/23/%E5%9F%BA%E4%BA%8E%E9%9D%9E%E9%98%BB%E5%A1%9E%E7%9A%84IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" target="_blank" class="mdui-ripple">Share to Google+</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://axiaokun.github.io/2022/01/23/%E5%9F%BA%E4%BA%8E%E9%9D%9E%E9%98%BB%E5%A1%9E%E7%9A%84IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/&title=基于非阻塞的IO多路复用" target="_blank" class="mdui-ripple">Share to LinkedIn</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="http://connect.qq.com/widget/shareqq/index.html?site=把博客做成字典&title=基于非阻塞的IO多路复用&pics=https://axiaokun.github.io/images/favicon.png&url=https://axiaokun.github.io/2022/01/23/%E5%9F%BA%E4%BA%8E%E9%9D%9E%E9%98%BB%E5%A1%9E%E7%9A%84IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" target="_blank" class="mdui-ripple">Share to QQ</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://telegram.me/share/url?url=https://axiaokun.github.io/2022/01/23/%E5%9F%BA%E4%BA%8E%E9%9D%9E%E9%98%BB%E5%A1%9E%E7%9A%84IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/&text=基于非阻塞的IO多路复用" target="_blank" class="mdui-ripple">Share to Telegram</a>
+            </li>
+          </ul>
+        
+      </div>
+    </header>
     <div class="mdui-card-content mdui-typo">
+      <h1 id="基于非阻塞的IO多路复用"><a href="#基于非阻塞的IO多路复用" class="headerlink" title="基于非阻塞的IO多路复用"></a>基于非阻塞的IO多路复用</h1><p>IO多路复用主要解决的是网络IO问题。</p>
+<p>在最基础的TCP的Socket编程中，一般我们只能一对一通信，为了服务更多的客户端，我们需要改进网络IO模型</p>
+<h2 id="多进程-线程模型"><a href="#多进程-线程模型" class="headerlink" title="多进程/线程模型"></a>多进程/线程模型</h2><p>每当有一个客户端连接时，就分配一个进程或线程，后续的操作都在Socket连接对应的进程或线程；当客户端数量增大时，这种方式带来的线程或进程的调度，上下文切换，内存占用等都会成为一个显著的问题</p>
+<p>于是出现了IO多路复用，可以在一个进程或线程中处理多个文件IO（Linux中一切皆文件，Socket也是文件），Linux中有三种IO多路复用API：select、poll、epoll</p>
+<h2 id="select、poll"><a href="#select、poll" class="headerlink" title="select、poll"></a>select、poll</h2><p>select实现原理：</p>
+<ul>
+<li>将已连接的Socket都放到一个文件描述符集合</li>
+<li>调用select函数将文件描述符集合<strong>拷贝</strong>到内核中，让内核检测是否有网络事件发生<ul>
+<li>检测方式：内核中，<strong>遍历标记</strong>；将整个文件描述符集合<strong>拷贝</strong>到用户态里；用户态，<strong>再遍历</strong>，找到标记为可读的Socket</li>
+</ul>
+</li>
+<li>对可读的Socket进行后续操作</li>
+</ul>
+<p>需要：<strong>两次遍历、两次拷贝</strong></p>
+<p>缺陷：多次遍历；多次拷贝；并且进程打开的文件描述符有限，文件描述符集合大小受限（在Linux 系统中，由内核中的 FD_SETSIZE 限制， 默认最⼤值为 1024 ，只能监听 0~1023 的⽂件描述符）</p>
+<p>poll使用动态数组存储文件描述符，解决文件描述符集合大小受限问题，但依旧存在多次遍历导致性能问题</p>
+<h2 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h2><p>改进：</p>
+<ul>
+<li>内核底层<strong>使用红黑树存储进程所有待检测的文件描述符</strong>，降低时间复杂度；同时，通过对这个红黑树的操作，不需要每次都要传入整个socket集合，只需要传入一个待检测的socket，减少了内核和用户空间的大量数据拷贝和内存分配</li>
+<li>使用<strong>事件驱动</strong>，内核维护一个<strong>链表记录就绪事件</strong>，当某个socket事件发生时，通过回调函数，内核会将其加入到这个就绪事件链表中，不需要轮询检测，提高了检测的效率</li>
+</ul>
+<p><img src="https://github.com/axiaokun/image/blob/main/blog/images/epoll.png?raw=true"></p>
+<h3 id="epoll的触发方式"><a href="#epoll的触发方式" class="headerlink" title="epoll的触发方式"></a>epoll的触发方式</h3><ul>
+<li><p>边缘触发</p>
+<p>当被监控的 Socket 描述符上有可读事件发⽣时，服务器端只会从 epoll_wait中苏醒⼀次，即使进程没有调⽤ read 函数从内核读取数据，也依然只苏醒⼀次，因此我们程序要保证⼀次性将内核缓冲区的数据读取完；</p>
+</li>
+<li><p>⽔平触发</p>
+<p>当被监控的 Socket 上有可读事件发⽣时，服务器端不断地从 epoll_wait 中苏醒，直到内核缓冲区数据被 read 函数读完才结束，⽬的是告诉我们有数据需要读取；</p>
+</li>
+</ul>
+<p>类似数电中的概念</p>
+
       
-        ……
-      
-    </div>
-    <div class="mdui-text-center">
-      <a href="/2022/01/23/%E5%9F%BA%E4%BA%8E%E9%9D%9E%E9%98%BB%E5%A1%9E%E7%9A%84IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" class="mdui-btn mdui-btn-raised mdui-btn-dense mdui-color-theme-accent mdui-ripple">Read More</a>
+      <blockquote>
+        
+        <strong>PermaLink: </strong><br><a href="https://axiaokun.github.io/2022/01/23/%E5%9F%BA%E4%BA%8E%E9%9D%9E%E9%98%BB%E5%A1%9E%E7%9A%84IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/">https://axiaokun.github.io/2022/01/23/基于非阻塞的IO多路复用/</a>
+      </blockquote>
     </div>
     <footer class="mdui-card-actions">
       
@@ -199,38 +270,32 @@
         <a class="mdui-ripple article_tags-link" href="/tags/IO/" rel="tag">IO</a>
       
     </footer>
+    
   </article>
+  
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 
-  <article class="mdui-card mdui-m-b-5 mdui-hoverable">
-    <a href="/2022/01/23/%E9%98%BB%E5%A1%9EIO-%E5%90%8C%E6%AD%A5IO-%E5%BC%82%E6%AD%A5IO/">
-      <header class="mdui-card-media mdui-ripple">
-        <img src="/images/random/material-12.png" style="max-height: 240px;">
-        <div class="mdui-card-media-covered">
-          <div class="mdui-card-primary">
-            <div class="mdui-card-primary-title">阻塞IO 同步IO 异步IO</div>
-            <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2022-01-23 / <i class="iconfont">&#xe601;</i> zkz</div>
-          </div>
-        </div>
-        
-      </header>
-    </a>
-    <div class="mdui-card-content mdui-typo">
-      
-        ……
-      
-    </div>
-    <div class="mdui-text-center">
-      <a href="/2022/01/23/%E9%98%BB%E5%A1%9EIO-%E5%90%8C%E6%AD%A5IO-%E5%BC%82%E6%AD%A5IO/" class="mdui-btn mdui-btn-raised mdui-btn-dense mdui-color-theme-accent mdui-ripple">Read More</a>
-    </div>
-    <footer class="mdui-card-actions">
-      
-        <a class="mdui-ripple article_categories-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
-      
-      
-        <a class="mdui-ripple article_tags-link" href="/tags/IO/" rel="tag">IO</a>
-      
-    </footer>
-  </article>
+  <script>$("#main article .mdui-card-content img.fancybox").on("click",function(e){$.fancybox.open({src:$(this).attr("src")});});</script>
+
+
+  <nav id="paginator">
+    
+      <a rel="prev" class="extend prev" href="/2022/01/23/MYSQL%E7%B4%A2%E5%BC%95/">
+        <button aria-label="prev" class="mdui-btn mdui-btn-raised mdui-btn-icon mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">arrow_back</i></button>
+        <span class="mdui-p-x-3" mdui-tooltip="{content: 'MYSQL索引'}">Prev</span>
+      </a>
+    
+    <div class="spacer"></div>
+    
+      <a rel="next" class="extend next" href="/2022/01/23/%E9%98%BB%E5%A1%9EIO-%E5%90%8C%E6%AD%A5IO-%E5%BC%82%E6%AD%A5IO/">
+        <span class="mdui-p-x-3" mdui-tooltip="{content: '阻塞IO 同步IO 异步IO'}">Next</span>
+        <button aria-label="next" class="mdui-btn mdui-btn-raised mdui-btn-icon mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">arrow_forward</i></button>
+      </a>
+    
+  </nav>
+
+
 
 </main>
   <footer id="footer" class="mdui-m-t-5 mdui-p-y-3 mdui-color-theme">
